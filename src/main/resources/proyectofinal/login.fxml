@@ -26,12 +26,12 @@
     <TextField fx:id="usernameField"
                promptText="Nombre de usuario"
                maxWidth="250"
-               style="-fx-text-fill: white; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
+               style="-fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
 
     <PasswordField fx:id="passwordField"
                    promptText="Contraseña"
                    maxWidth="250"
-                   style="-fx-text-fill: white; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
+                   style="-fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
 
     <Button text="Iniciar sesión"
             onAction="#handleLogin"

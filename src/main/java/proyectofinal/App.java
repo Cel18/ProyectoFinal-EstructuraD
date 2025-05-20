@@ -11,7 +11,12 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/login.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/inicio.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/grupoEstudio.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/mensajeria.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/panelEstudiante.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/panelModerador.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root, 400, 400); // puedes ajustar el tamaño

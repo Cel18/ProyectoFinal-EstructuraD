@@ -19,7 +19,6 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Validación básica (puedes reemplazar con lógica real)
         if (username.equals("admin") && password.equals("1234")) {
             mostrarAlerta(AlertType.INFORMATION, "Inicio de sesión exitoso", "Bienvenido, " + username + "!");
         } else {
@@ -29,7 +28,7 @@ public class LoginController {
 
     @FXML
     private void handleRegister() {
-        mostrarAlerta(AlertType.INFORMATION, "Registro", "Funcionalidad de registro aún no implementada.");
+        mostrarAlerta(AlertType.INFORMATION, "Registro", "Registrando (no funciona aún jaja).");
     }
 
     private void mostrarAlerta(AlertType tipo, String titulo, String contenido) {

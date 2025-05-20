@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="proyectofinal.Controladores.GrupoEstudioController"
+      alignment="TOP_CENTER"
+      spacing="15"
+      style="-fx-background-color: #D8EFE9;"
+>
+
+    <padding>
+        <Insets top="20" bottom="20" left="25" right="25"/>
+    </padding>
+
+    <Label text="Grupos de Estudio Sugeridos"
+           style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
+
+    <ListView fx:id="listaGrupos" prefHeight="250" prefWidth="350" />
+
+    <Button text="Unirse al Grupo"
+            onAction="#handleUnirseGrupo"
+            maxWidth="200"
+            style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+
+</VBox>

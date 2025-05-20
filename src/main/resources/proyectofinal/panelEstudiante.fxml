@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      alignment="TOP_CENTER"
+      spacing="15"
+      style="-fx-background-color: #d8efe9;"
+      fx:controller="proyectofinal.Controladores.PanelEstudianteController">
+
+    <padding>
+        <Insets top="20" bottom="20" left="30" right="30"/>
+    </padding>
+
+    <Label text="Panel del Estudiante"
+           textFill="#206989">
+        <font>
+            <Font name="Arial Bold" size="22"/>
+        </font>
+    </Label>
+
+    <Button text="Ver Contenidos Publicados"
+            onAction="#handleVerContenidos"
+            maxWidth="300"
+            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
+
+    <Button text="Ver Valoraciones"
+            onAction="#handleVerValoraciones"
+            maxWidth="300"
+            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
+
+    <Button text="Ver Sugerencias"
+            onAction="#handleVerSugerencias"
+            maxWidth="300"
+            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
+
+    <Button text="Solicitudes de Ayuda"
+            onAction="#handleSolicitudesAyuda"
+            maxWidth="300"
+            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
+</VBox>

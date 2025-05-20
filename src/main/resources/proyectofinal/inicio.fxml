@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      alignment="CENTER"
+      spacing="20"
+      style="-fx-background-color: #d8efe9;"
+      fx:controller="proyectofinal.Controladores.InicioController">
+
+    <padding>
+        <Insets top="40" bottom="40" left="30" right="30"/>
+    </padding>
+
+    <Label text="Inicio"
+           textFill="#206989">
+        <font>
+            <Font name="Arial Bold" size="22"/>
+        </font>
+    </Label>
+
+    <Button text="Explorar Contenidos"
+            onAction="#handleExplorarContenidos"
+            maxWidth="250"
+            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
+
+    <Button text="Acceder a Perfil"
+            onAction="#handleAccederPerfil"
+            maxWidth="250"
+            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
+
+</VBox>
