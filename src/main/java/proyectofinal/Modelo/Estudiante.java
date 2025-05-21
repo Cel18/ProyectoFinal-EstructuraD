@@ -11,6 +11,7 @@ public class Estudiante {
     private List<Valoracion> valoraciones;
     private List<Estudiante> conexiones;
 
+    //Constructor de la clase Estudiante
     public Estudiante(String nombre, String apellido, String id) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -20,7 +21,7 @@ public class Estudiante {
         this.conexiones = new ArrayList<>();
     }
 
-    //getters and setters
+    //Getters and Setters
     public String getNombre() {
         return nombre;
     }
