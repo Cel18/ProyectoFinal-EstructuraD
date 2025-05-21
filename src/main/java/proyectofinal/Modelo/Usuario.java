@@ -9,6 +9,13 @@ public class Usuario {
         this.id = id;
     }
 
+    //Método para autentificar el inicio de sesión
+
+    public boolean autenticar(String id){
+        return false;
+    }
+
+
     //getters and setters
     public String getNombre() {
         return nombre;

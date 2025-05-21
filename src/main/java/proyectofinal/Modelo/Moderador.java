@@ -6,7 +6,18 @@ public class Moderador extends Usuario {
         super(nombre, id);
     }
 
-    public void generarReporteContenidos(){}
+    //Método para eliminar estudiante
+    public void eliminarEstudiante() {
 
-    public void analizarGrafoAfinidad(GrafoAfinidad grafo){}
+    }
+
+    public void generarReporteContenidos(){
+
+    }
+
+    public void analizarGrafoAfinidad(GrafoAfinidad grafo){
+
+    }
+
+
 }
