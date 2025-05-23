@@ -1,9 +1,11 @@
 package proyectofinal.Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrupoEstudio {
+public class GrupoEstudio implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Estudiante> integrantes;
 
     public GrupoEstudio() {

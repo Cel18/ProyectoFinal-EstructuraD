@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="proyectofinal.Controladores.OpcionRegistroController"
+      alignment="CENTER"
+      spacing="20"
+      style="-fx-background-color: #d8efe9;">
+
+    <padding>
+        <Insets top="40" right="30" bottom="40" left="30"/>
+    </padding>
+
+    <Button text="Registrarse como Estudiante"
+            onAction="#handleRegistroEstudiante"
+            maxWidth="250"
+            style="-fx-background-color: #24789c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+
+    <Button text="Registrarse como Moderador"
+            onAction="#handleRegistroModerador"
+            maxWidth="250"
+            style="-fx-background-color: #24789c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+</VBox>

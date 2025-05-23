@@ -1,11 +1,13 @@
 package proyectofinal.Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GrafoAfinidad {
+public class GrafoAfinidad implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Map<Estudiante, List<Estudiante>> adyacencias;
 
     public GrafoAfinidad() {
@@ -23,5 +25,15 @@ public class GrafoAfinidad {
 
     public List<Estudiante> obtenerVecinos(Estudiante e){
         return adyacencias.getOrDefault(e, new ArrayList<>());
+    }
+
+    public List<Estudiante> obtenerCaminoMasCorto(Estudiante e1, Estudiante e2){
+        return List.of();
+    }
+    public List<Estudiante> sugerirEstudiante(Estudiante e){
+        return List.of();
+    }
+    public List<GrupoEstudio> detectarGrupos(){
+        return List.of();
     }
 }

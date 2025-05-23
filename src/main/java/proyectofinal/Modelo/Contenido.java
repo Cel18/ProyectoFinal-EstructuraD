@@ -1,12 +1,14 @@
 package proyectofinal.Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Contenido {
+public class Contenido implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String tema;
     private String autor;
-    private String tipo;
+    private String tipo; //hayq eu cambiar el tipo
     private String id;
     private List<Valoracion> valoraciones;
 
@@ -17,6 +19,11 @@ public class Contenido {
         this.tipo = tipo;
         this.id = id;
         this.valoraciones = new ArrayList();
+    }
+
+    public void agregarValoracion(Valoracion valoracion) {}
+    public double calcularPrimedioValoracion(){
+        return 0;
     }
 
     //Getters y Setters

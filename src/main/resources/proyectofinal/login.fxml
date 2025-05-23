@@ -23,12 +23,12 @@
         </font>
     </Label>
 
-    <TextField fx:id="usernameField"
+    <TextField fx:id="tfnombreUsuario"
                promptText="Nombre de usuario"
                maxWidth="250"
                style="-fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
 
-    <PasswordField fx:id="passwordField"
+    <PasswordField fx:id="pfcontrasena"
                    promptText="Contraseña"
                    maxWidth="250"
                    style="-fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>

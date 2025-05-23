@@ -1,6 +1,9 @@
 package proyectofinal.Modelo;
 
-public class Valoracion {
+import java.io.Serializable;
+
+public class Valoracion implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Estudiante estudiante;
     private Contenido contenido;
     private int puntuacion;

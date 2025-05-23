@@ -1,23 +1,15 @@
 package proyectofinal.Modelo;
 
-public class Moderador extends Usuario {
+import java.io.Serializable;
 
-    public Moderador(String nombre, String id) {
-        super(nombre, id);
+public class Moderador extends Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    public Moderador(String nombre, String contrasena) {
+        super(nombre, contrasena);
     }
 
-    //Método para eliminar estudiante
-    public void eliminarEstudiante() {
+    public void generarReporteContenidos(){}
 
-    }
-
-    public void generarReporteContenidos(){
-
-    }
-
-    public void analizarGrafoAfinidad(GrafoAfinidad grafo){
-
-    }
-
-
+    public void analizarGrafoAfinidad(GrafoAfinidad grafo){}
 }

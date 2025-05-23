@@ -1,22 +1,29 @@
 package proyectofinal.Modelo;
 
-public class Usuario {
-    private String nombre;
-    private String id;
+import java.io.Serializable;
+import java.util.UUID;
 
-    public Usuario(String nombre, String id) {
+public abstract class Usuario implements Serializable {
+    protected String id;
+    protected String nombre;
+    protected String contrasena;
+
+    public Usuario(String nombre, String contrasena) {
+        this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
-        this.id = id;
+        this.contrasena = contrasena;
     }
 
-    //Método para autentificar el inicio de sesión
-
-    public boolean autenticar(String id){
-        return false;
+    public boolean autenticarConstrasena(String id){
+        return this.contrasena.equals(id);
     }
-
 
     //getters and setters
+
+    public String getId() {
+        return id;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -25,11 +32,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getId() {
-        return id;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setContrasena(String id) {
+        this.contrasena = id;
     }
 }

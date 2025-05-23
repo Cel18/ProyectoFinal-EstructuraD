@@ -29,15 +29,19 @@ public class Persistencia {
     public static void guardarEstudiantes(Map<String, Estudiante> estudiantes) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("estudiantes.dat"))) {
             oos.writeObject(estudiantes);
+            System.out.println("estudiante guardado exitosamente.");
         } catch (IOException e) {
+            System.out.println("Error al guardar estudiante:");
             e.printStackTrace();
         }
     }
 
     public static Map<String, Estudiante> cargarEstudiante() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiantes.dat"))) {
+            System.out.println("Estudiantes cargado desde archivo.");
             return (Map<String, Estudiante>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar estudiantes:");
             e.printStackTrace();
             return new HashMap<>();
         }
@@ -80,20 +84,24 @@ public class Persistencia {
     }
 
     //Persistencia de la lista de los moderadores
-    public static void guardarModeradores(List<Moderador> moderadores) {
+    public static void guardarModeradores(Map<String, Moderador> moderadores) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("moderadores.dat"))) {
             oos.writeObject(moderadores);
+            System.out.println("moderador guardado exitosamente.");
         } catch (IOException e) {
+            System.out.println("Error al guardar moderador:");
             e.printStackTrace();
         }
     }
 
-    public static List<Moderador> cargarModeradores() {
+    public static Map<String, Moderador> cargarModeradores() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("moderadores.dat"))) {
-            return (List<Moderador>) ois.readObject();
+            System.out.println("Moderadores cargado desde archivo.");
+            return (Map<String, Moderador>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar moderadores:");
             e.printStackTrace();
-            return new ArrayList<>();
+            return new HashMap<>();
         }
     }
 
@@ -101,15 +109,19 @@ public class Persistencia {
     public static void guardarRedSocial(RedSocial redSocial) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("redSocial.dat"))) {
             oos.writeObject(redSocial);
+            System.out.println("Red social guardada exitosamente.");
         } catch (IOException e) {
+            System.out.println("Error al guardar red social:");
             e.printStackTrace();
         }
     }
 
     public static RedSocial cargarRedSocial() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("redSocial.dat"))) {
+            System.out.println("Red social cargada desde archivo.");
             return (RedSocial) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar red social:");
             e.printStackTrace();
             return new RedSocial("");
         }

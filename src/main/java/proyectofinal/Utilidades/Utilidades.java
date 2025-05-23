@@ -14,8 +14,7 @@ public class Utilidades {
     private Utilidades() {
         logger = Logger.getLogger("RedSocialLogger");
         try {
-            //Cambia mi usuario "juans" por el tuyo cuando vayas a probar persistencia :)
-            FileHandler fileHandler = new FileHandler("C:\\Users\\juans\\Downloads\\Proyecto_Final_ED\\Log_Red_Social.log", true);
+            FileHandler fileHandler = new FileHandler("Log_Red_Social.log", true);
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
             logger.setLevel(Level.ALL);

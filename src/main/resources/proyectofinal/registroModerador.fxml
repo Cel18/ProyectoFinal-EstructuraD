@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="proyectofinal.Controladores.RegistroModeradorController"
+      alignment="CENTER"
+      spacing="15"
+      style="-fx-background-color: #d8efe9;">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="Registro Moderador"
+           textFill="#1a5872"
+           style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
+
+    <TextField fx:id="tfNombre"
+               promptText="Nombre"
+               maxWidth="250"
+               style="-fx-background-color: #acdad8; -fx-border-color: #728bb1; -fx-text-fill: black;"/>
+    <PasswordField fx:id="pfContrasena"
+                   promptText="Contraseña"
+                   maxWidth="250"
+                   style="-fx-background-color: #acdad8; -fx-border-color: #728bb1; -fx-text-fill: black;"/>
+
+    <Button text="Registrar"
+            onAction="#handleRegistrarModerador"
+            maxWidth="150"
+            style="-fx-background-color: #24789c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+</VBox>
