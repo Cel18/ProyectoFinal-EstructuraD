@@ -18,6 +18,7 @@ public class RedSocial implements Serializable {
     private GrafoAfinidad grafo;
     private ColaPrioridadSolicitudes colaSolicitudes;
     private List<GrupoEstudio> grupoEstudios;
+    private Estudiante estudianteActivo; //estudiante loggeado
 
     public RedSocial(String nombre) {
         this.nombre = nombre;
@@ -42,6 +43,7 @@ public class RedSocial implements Serializable {
     public Estudiante autenticarEstudiante(String nombre, String contrasena) {
         for (Estudiante e : estudiantes.values()) {
             if (e.getNombre().equals(nombre) && e.getContrasena().equals(contrasena)) {
+                estudianteActivo = e;
                 return e;
             }
         }
@@ -73,12 +75,6 @@ public class RedSocial implements Serializable {
     public void cargarDatosPrueba(){}
     public List<Contenido>  obtenerTodosContenidos() {
         return List.of();
-    }
-    public List<Estudiante> obtenerEstudiantes() {
-        return List.of();
-    }
-    public GrafoAfinidad obtenerGrafo() {
-        return null;
     }
 
     //getters and setters
@@ -144,5 +140,13 @@ public class RedSocial implements Serializable {
 
     public void setGrupoEstudios(List<GrupoEstudio> grupoEstudios) {
         this.grupoEstudios = grupoEstudios;
+    }
+
+    public Estudiante getEstudianteActivo() {
+        return estudianteActivo;
+    }
+
+    public void setEstudianteActivo(Estudiante estudianteActivo) {
+        this.estudianteActivo = estudianteActivo;
     }
 }

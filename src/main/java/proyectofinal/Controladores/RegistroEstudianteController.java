@@ -49,8 +49,8 @@ public class RegistroEstudianteController {
         }
 
         Estudiante estudiante = new Estudiante(nombre, apellido, contrasena);
-        redSocial.registrarEstudiante(estudiante);
 
+        redSocial.registrarEstudiante(estudiante);
         Persistencia.guardarRedSocial(redSocial);
 
         mostrarAlerta("Éxito", "Estudiante registrado correctamente.");

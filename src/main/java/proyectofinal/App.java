@@ -12,17 +12,10 @@ import proyectofinal.Utilidades.Persistencia;
 public class App extends Application {
     RedSocial redSocial = Persistencia.cargarRedSocial();
 
-    /*@Override
+    @Override
     public void start(Stage primaryStage) {
         if (redSocial.getNombre().isEmpty() || redSocial.getEstudiantes().isEmpty() || redSocial.getModeradores().isEmpty()) {
             redSocial = new RedSocial("RedSocialAprendizaje");
-
-            //Datos de prueba
-            Estudiante est = new Estudiante("Cel", "Ramírez", "123");
-            Moderador mod = new Moderador("Admin", "321");
-
-            redSocial.registrarEstudiante(est);
-            redSocial.registrarModerador(mod);
 
             Persistencia.guardarRedSocial(redSocial);
         }
@@ -48,9 +41,9 @@ public class App extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
-    @Override
+    /*@Override
     public void start(Stage primaryStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/mensajeria.fxml"));
@@ -63,7 +56,7 @@ public class App extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static void main(String[] args) {
         launch(args);

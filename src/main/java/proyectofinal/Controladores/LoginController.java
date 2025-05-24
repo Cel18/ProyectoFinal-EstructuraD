@@ -1,14 +1,15 @@
 package proyectofinal.Controladores;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.*;
 import proyectofinal.Modelo.*;
+import proyectofinal.Utilidades.Persistencia;
 
 import java.io.IOException;
 
@@ -30,16 +31,13 @@ public class LoginController {
         Moderador mod = redSocial.autenticarModerador(nombre, contrasena);
 
         if (est != null) {
-            redirigirVista("panelEstudiante.fxml");
+            redSocial.setEstudianteActivo(est);
+            redirigirVista("inicio.fxml");
         } else if (mod != null) {
             redirigirVista("panelModerador.fxml");
         } else {
-            mostrarAlerta(AlertType.ERROR, "Error de inicio de sesión", "Nombre de usuario o contraseña incorrectos.");
+            mostrarAlerta("Error de inicio de sesión", "Nombre de usuario o contraseña incorrectos.");
         }
-    }
-
-    public void setRedSocial(RedSocial redSocial) {
-        this.redSocial = redSocial;
     }
 
     @FXML
@@ -47,11 +45,39 @@ public class LoginController {
         redirigirVista("opcionRegistro.fxml");
     }
 
-    private void mostrarAlerta(AlertType tipo, String titulo, String contenido) {
-        Alert alert = new Alert(tipo);
+    @FXML
+    public void handleCargarDatos(ActionEvent actionEvent) {
+        try {
+            redSocial = new RedSocial("RedSocialAprendizaje");
+
+            Estudiante est = new Estudiante("Sofia", "Buitrago", "333");
+            Moderador mod = new Moderador("Celeste", "111");
+
+            redSocial.registrarEstudiante(est);
+            redSocial.registrarModerador(mod);
+
+            Persistencia.guardarRedSocial(redSocial);
+
+            System.out.println("== Estudiantes cargados ==");
+            redSocial.getEstudiantes().forEach((id, estudiante) -> {
+                System.out.println("Nombre: " + estudiante.getNombre() + ", Contraseña: " + estudiante.getContrasena());
+            });
+            System.out.println("== Moderadores cargados ==");
+            redSocial.getModeradores().forEach((id, moderador) -> {
+                System.out.println("Nombre: " + moderador.getNombre() + ", Contraseña: " + moderador.getContrasena());
+            });
+            mostrarAlerta("Datos Cargados", "Se cargó una nueva red social con datos de prueba.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Error al Cargar Datos", "Ocurrió un error al crear o guardar los datos.\n" + e.getMessage());
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
-        alert.setContentText(contenido);
+        alert.setContentText(mensaje);
         alert.showAndWait();
     }
 
@@ -63,6 +89,10 @@ public class LoginController {
             Object controller = loader.getController();
             if (controller instanceof OpcionRegistroController) {
                 ((OpcionRegistroController) controller).setRedSocial(redSocial);
+            } else if (controller instanceof InicioController) {
+                ((InicioController) controller).setRedSocial(redSocial);
+            } else if (controller instanceof PanelModeradorController) {
+                ((PanelModeradorController) controller).setRedSocial(redSocial);
             }
 
             Stage stage = (Stage) tfnombreUsuario.getScene().getWindow();
@@ -72,7 +102,11 @@ public class LoginController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta(AlertType.ERROR, "Error", "No se pudo cargar la vista: " + fxml);
+            mostrarAlerta("Error", "No se pudo cargar la vista: " + fxml);
         }
+    }
+
+    public void setRedSocial(RedSocial redSocial) {
+        this.redSocial = redSocial;
     }
 }

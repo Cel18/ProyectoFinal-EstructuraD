@@ -5,42 +5,58 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="proyectofinal.Controladores.LoginController"
-      alignment="CENTER"
-      spacing="15"
-      style="-fx-background-color: #d8efe9;">
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="proyectofinal.Controladores.LoginController"
+            style="-fx-background-color: #d8efe9;"
+            prefWidth="800" prefHeight="600">
 
-    <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
-    </padding>
+    <center>
+        <VBox alignment="CENTER"
+              spacing="20"
+              style="-fx-background-color: #d8efe9;">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
 
-    <Label text="Iniciar sesión en red de aprendizaje"
-           textFill="#206989">
-        <font>
-            <Font name="Arial Bold" size="18"/>
-        </font>
-    </Label>
+            <Label text="Iniciar sesión en red de aprendizaje"
+                   textFill="#206989">
+                <font>
+                    <Font name="Arial Bold" size="26"/>
+                </font>
+            </Label>
 
-    <TextField fx:id="tfnombreUsuario"
-               promptText="Nombre de usuario"
-               maxWidth="250"
-               style="-fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
+            <TextField fx:id="tfnombreUsuario"
+                       promptText="Nombre de usuario"
+                       maxWidth="400"
+                       style="-fx-font-size: 16px; -fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
 
-    <PasswordField fx:id="pfcontrasena"
-                   promptText="Contraseña"
-                   maxWidth="250"
-                   style="-fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
+            <PasswordField fx:id="pfcontrasena"
+                           promptText="Contraseña"
+                           maxWidth="400"
+                           style="-fx-font-size: 16px; -fx-text-fill: #1a5872; -fx-prompt-text-fill: #24789c; -fx-background-color: #acdad8;"/>
 
-    <Button text="Iniciar sesión"
-            onAction="#handleLogin"
-            maxWidth="250"
-            style="-fx-background-color: #24789c; -fx-text-fill: white; -fx-border-color: #728bb1; -fx-border-width: 1;"/>
+            <Button text="Iniciar sesión"
+                    onAction="#handleLogin"
+                    maxWidth="400"
+                    style="-fx-font-size: 16px; -fx-background-color: #24789c; -fx-text-fill: white; -fx-border-color: #728bb1; -fx-border-width: 1;"/>
 
-    <Button text="Registrarse"
-            onAction="#handleRegister"
-            maxWidth="250"
-            style="-fx-background-color: transparent; -fx-text-fill: #1664a3; -fx-font-weight: bold;"/>
+            <Button text="Registrarse"
+                    onAction="#handleRegister"
+                    maxWidth="400"
+                    style="-fx-font-size: 16px; -fx-background-color: transparent; -fx-text-fill: #1664a3; -fx-font-weight: bold;"/>
+        </VBox>
+    </center>
 
-</VBox>
+    <bottom>
+        <HBox alignment="BOTTOM_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="10"/>
+            </padding>
+            <Button fx:id="btnCargarDatos"
+                    text="Cargar Datos"
+                    onAction="#handleCargarDatos"
+                    style="-fx-font-size: 14px; -fx-background-color: #1A5872; -fx-text-fill: white;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

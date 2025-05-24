@@ -2,16 +2,21 @@ package proyectofinal.Modelo;
 
 import proyectofinal.Utilidades.Utilidades;
 
+import java.util.Iterator;
 import java.util.logging.Level;
 
-public class ListaEnlazada <T> {
-
+public class ListaEnlazada <T> implements Iterable<T>{
     private NodoContenido<T> inicial;
     private int tamanio;
 
     public ListaEnlazada() {
         this.inicial = null;
         this.tamanio = 0;
+    }
+
+    @Override
+    public java.util.Iterator<T> iterator() {
+        return new IteradorLista();
     }
 
     //Método para añadir un nodo a la lista
@@ -97,7 +102,6 @@ public class ListaEnlazada <T> {
         return false;
     }
 
-
     //Getters y Setters
     public NodoContenido<T> getInicial() {
         return inicial;
@@ -113,5 +117,22 @@ public class ListaEnlazada <T> {
 
     public void setTamanio(int tamanio) {
         this.tamanio = tamanio;
+    }
+
+
+    private class IteradorLista implements Iterator<T> {
+        private NodoContenido<T> actual = inicial;
+
+        @Override
+        public boolean hasNext() {
+            return actual != null;
+        }
+
+        @Override
+        public T next() {
+            T contenido = actual.getContenido();
+            actual = actual.getDerecho();
+            return contenido;
+        }
     }
 }

@@ -92,6 +92,25 @@ public class Estudiante extends Usuario implements Serializable {
         return null;
     }
 
+    public double getPromedioValoraciones() {
+        if (valoraciones == null || valoraciones.getTamanio() == 0) return 0;
+        int suma = 0;
+        int count = 0;
+
+        NodoContenido<Valoracion> actual = valoraciones.getInicial();
+        while (actual != null) {
+            suma += actual.getContenido().getPuntuacion();
+            count++;
+            actual = actual.getDerecho();
+        }
+
+        return count > 0 ? (double) suma / count : 0;
+    }
+
+    public String getNombreCompleto() {
+        return this.getNombre() + " " + this.apellido;
+    }
+
     //Getters and Setters
     public String getApellido() {
         return apellido;

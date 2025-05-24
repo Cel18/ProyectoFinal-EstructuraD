@@ -23,7 +23,7 @@ public class ArbolBinario <T>{
 
     private ArbolBinario(NodoContenido<T> raiz) {
         this.raiz = null;
-        this.peso = obtenerPesoSubarbol(raiz, peso);
+        //this.peso = obtenerPesoSubarbol(raiz, peso);
         this.raiz = raiz;
     }
 
@@ -32,6 +32,7 @@ public class ArbolBinario <T>{
     */
     //Método para agregar un nodo al árbol
 
+    /*
     public void agregarNodo(T contenido) {
         NodoContenido<T> nuevoNodo = new NodoContenido<>(contenido);
 
@@ -66,6 +67,7 @@ public class ArbolBinario <T>{
      * 3. Tiene 2 hijos
      */
 
+    /*
     public void eliminarPrimero() {
 
             //Caso 3. Tiene 2 Hijos.
@@ -193,6 +195,7 @@ public class ArbolBinario <T>{
 
     //Métodos para recorrer el árbol en preorden, inorden y postorden
 
+    /*
     public String recorrerPreorden() {
         String cadena = "";
         if (!esVacio()) {
@@ -311,6 +314,7 @@ public class ArbolBinario <T>{
 
     //Métodos recursivos
 
+    /*
     public void agregarNodoRecursivo(NodoContenido<T> nuevoNodo, NodoContenido<T> raiz) {
         if (raiz == null) {
             return;
@@ -480,7 +484,7 @@ public class ArbolBinario <T>{
         cadena += subarbolIzquierdo + subarbolDerecho + raiz.getContenido() + " - ";
         Utilidades.getInstance().escribirLog(Level.INFO, "Método recorrerPostordenRecursivo en ArbolBinario. Correcto.");
         return cadena;
-    }
+    }*/
 
     /*
     * Métodos de existencia de un nodo en el árbol

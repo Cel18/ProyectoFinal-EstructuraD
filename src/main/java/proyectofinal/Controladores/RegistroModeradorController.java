@@ -42,8 +42,8 @@ public class RegistroModeradorController {
         }
 
         Moderador mod = new Moderador(nombre, contrasena);
-        redSocial.registrarModerador(mod);
 
+        redSocial.registrarModerador(mod);
         Persistencia.guardarRedSocial(redSocial);
 
         mostrarAlerta("Éxito", "Moderador registrado correctamente.");
