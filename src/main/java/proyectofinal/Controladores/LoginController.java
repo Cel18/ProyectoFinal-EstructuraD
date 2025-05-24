@@ -30,7 +30,7 @@ public class LoginController {
         Moderador mod = redSocial.autenticarModerador(nombre, contrasena);
 
         if (est != null) {
-            redirigirVista("inicio.fxml");
+            redirigirVista("panelEstudiante.fxml");
         } else if (mod != null) {
             redirigirVista("panelModerador.fxml");
         } else {
@@ -68,6 +68,7 @@ public class LoginController {
             Stage stage = (Stage) tfnombreUsuario.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
