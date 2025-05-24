@@ -9,8 +9,7 @@
       fx:controller="proyectofinal.Controladores.PanelModeradorController"
       alignment="TOP_CENTER"
       spacing="15"
-      style="-fx-background-color: #D8EFE9;"
->
+      style="-fx-background-color: #D8EFE9;">
 
     <padding>
         <Insets top="20" bottom="20" left="25" right="25"/>
@@ -20,17 +19,18 @@
            style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
 
     <HBox spacing="20" alignment="CENTER">
-        <VBox spacing="10">
-            <Label text="Usuarios Registrados" style="-fx-font-weight: bold;"/>
-            <ListView fx:id="listaUsuarios" prefWidth="250" prefHeight="200"/>
-            <Button text="Eliminar Usuario"
-                    onAction="#handleEliminarUsuario"
+        <VBox spacing="15" alignment="CENTER">
+            <Button text="Administrar Usuarios" prefWidth="200"
+                    style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+            <Button text="Administrar Contenidos" prefWidth="200"
+                    style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+            <Button text="Generar Reporte" prefWidth="200"
                     style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
         </VBox>
 
         <VBox spacing="10">
             <Label text="Visualización del Grafo" style="-fx-font-weight: bold;"/>
-            <Pane fx:id="panelGrafo" prefWidth="300" prefHeight="200" style="-fx-background-color: #ACDAD8; -fx-border-color: #728BB1;"/>
+            <Pane fx:id="panelGrafo" prefWidth="500" prefHeight="300" style="-fx-background-color: #ACDAD8; -fx-border-color: #728BB1;"/>
         </VBox>
     </HBox>
 

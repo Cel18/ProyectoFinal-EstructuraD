@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="proyectofinal.Controladores.MensajeriaController"
-      alignment="TOP_CENTER"
-      spacing="10"
-      style="-fx-background-color: #D8EFE9;"
->
+<VBox alignment="TOP_CENTER" prefHeight="405.0" prefWidth="390.0" spacing="10" style="-fx-background-color: #D8EFE9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.Controladores.MensajeriaController">
 
     <padding>
-        <Insets top="15" bottom="15" left="20" right="20"/>
+        <Insets bottom="15" left="20" right="20" top="15" />
     </padding>
 
-    <Label text="Mensajería entre estudiantes"
-           style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
+    <Label style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;" text="Mensajería entre estudiantes" />
 
-    <ListView fx:id="listaContactos" prefHeight="150" prefWidth="350" />
+    <ListView fx:id="listaContactos" prefHeight="95.0" prefWidth="350" />
 
-    <TextArea fx:id="areaMensajes" prefHeight="150" prefWidth="350" editable="false" wrapText="true"/>
+    <TextArea fx:id="areaMensajes" editable="false" prefHeight="186.0" prefWidth="350" wrapText="true" />
 
-    <HBox spacing="10" alignment="CENTER">
-        <TextField fx:id="campoMensaje" promptText="Escribe un mensaje..."
-                   prefWidth="280"
-                   style="-fx-background-color: #ACDAD8; -fx-text-fill: black;"/>
-        <Button text="Enviar"
-                onAction="#handleEnviarMensaje"
-                style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+    <HBox alignment="CENTER" spacing="10">
+        <TextField fx:id="campoMensaje" prefWidth="280" promptText="Escribe un mensaje..." style="-fx-background-color: #ACDAD8; -fx-text-fill: black;" />
+        <Button onAction="#handleEnviarMensaje" style="-fx-background-color: #24789C; -fx-text-fill: white;" text="Enviar" />
     </HBox>
 </VBox>

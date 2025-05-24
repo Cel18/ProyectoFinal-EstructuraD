@@ -12,7 +12,7 @@ import proyectofinal.Utilidades.Persistencia;
 public class App extends Application {
     RedSocial redSocial = Persistencia.cargarRedSocial();
 
-    @Override
+    /*@Override
     public void start(Stage primaryStage) {
         if (redSocial.getNombre().isEmpty() || redSocial.getEstudiantes().isEmpty() || redSocial.getModeradores().isEmpty()) {
             redSocial = new RedSocial("RedSocialAprendizaje");
@@ -36,18 +36,28 @@ public class App extends Application {
         });
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/login.fxml"));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/inicio.fxml"));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/grupoEstudio.fxml"));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/mensajeria.fxml"));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/panelEstudiante.fxml"));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/panelModerador.fxml"));
             Parent root = loader.load();
 
             LoginController loginController = loader.getController();
             loginController.setRedSocial(redSocial);
 
-            Scene scene = new Scene(root, 400, 400);
-            primaryStage.setTitle(redSocial.getNombre() + " - Login");
+            Scene scene = new Scene(root);
+            primaryStage.setTitle(redSocial.getNombre());
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/mensajeria.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            primaryStage.setTitle(redSocial.getNombre());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {

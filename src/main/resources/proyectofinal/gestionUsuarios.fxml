@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="proyectofinal.Controladores.GestionUsuariosController"
+      spacing="15"
+      alignment="TOP_CENTER"
+      style="-fx-background-color: #D8EFE9;">
+
+    <padding>
+        <Insets top="20" right="25" bottom="20" left="25"/>
+    </padding>
+
+    <Label text="Gestión de Usuarios"
+           style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Buscar:"/>
+        <TextField fx:id="campoBusqueda" promptText="Nombre o ID del usuario" prefWidth="300"/>
+        <Button text="Buscar" onAction="#handleBuscarUsuario"
+                style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+    </HBox>
+
+    <ListView fx:id="listaUsuarios" prefHeight="300" prefWidth="400"/>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Agregar Usuario" onAction="#handleAgregarUsuario"
+                style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+        <Button text="Eliminar Usuario" onAction="#handleEliminarUsuario"
+                style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+    </HBox>
+
+</VBox>

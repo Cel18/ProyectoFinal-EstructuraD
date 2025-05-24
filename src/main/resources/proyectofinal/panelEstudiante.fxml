@@ -1,45 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      alignment="TOP_CENTER"
-      spacing="15"
-      style="-fx-background-color: #d8efe9;"
-      fx:controller="proyectofinal.Controladores.PanelEstudianteController">
+<BorderPane prefHeight="800" prefWidth="1280" style="-fx-background-color: #D8EFE9FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.Controladores.PanelEstudianteController">
 
-    <padding>
-        <Insets top="20" bottom="20" left="30" right="30"/>
-    </padding>
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="762.0" prefWidth="154.0" spacing="20" style="-fx-background-color: #ACDAD8FF;">
+            <Button style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" text="Grupos de Estudio" />
+            <Button style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" text="Mensajería" />
+        </VBox>
+    </left>
 
-    <Label text="Panel del Estudiante"
-           textFill="#206989">
-        <font>
-            <Font name="Arial Bold" size="22"/>
-        </font>
-    </Label>
+    <top>
+        <HBox alignment="TOP_RIGHT" spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+        <ImageView fx:id="imagenPerfil" fitHeight="40" fitWidth="40" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@Imagenes/dragon.png" />
+                </image>
+            </ImageView>
+        </HBox>
+    </top>
 
-    <Button text="Ver Contenidos Publicados"
-            onAction="#handleVerContenidos"
-            maxWidth="300"
-            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
-
-    <Button text="Ver Valoraciones"
-            onAction="#handleVerValoraciones"
-            maxWidth="300"
-            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
-
-    <Button text="Ver Sugerencias"
-            onAction="#handleVerSugerencias"
-            maxWidth="300"
-            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
-
-    <Button text="Solicitudes de Ayuda"
-            onAction="#handleSolicitudesAyuda"
-            maxWidth="300"
-            style="-fx-background-color: #24789c; -fx-text-fill: white;"/>
-</VBox>
+    <center>
+        <TabPane fx:id="tabPane" prefHeight="762.0" prefWidth="1128.0" style="-fx-background-color: #FFFFFF;" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Contenidos Publicados">
+                <BorderPane style="-fx-background-color: #FFFFFF;">
+                    <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <top>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <TextField fx:id="tfBuscarContenido" promptText="Buscar contenidos..." HBox.hgrow="ALWAYS" />
+                            <Button fx:id="btnBuscarContenido" text="Buscar" />
+                        </HBox>
+                    </top>
+                    <center>
+                        <ListView fx:id="listaContenidos" prefHeight="400" />
+                    </center>
+                    <bottom>
+                        <HBox alignment="CENTER_RIGHT">
+                            <padding>
+                                <Insets bottom="0" left="0" right="0" top="10" />
+                            </padding>
+                            <Button fx:id="btnPublicar" text="Publicar" />
+                        </HBox>
+                    </bottom>
+                </BorderPane>
+            </Tab>
+            <Tab text="Valoraciones">
+                <AnchorPane style="-fx-background-color: #FFFFFF;">
+                    <Label layoutX="20" layoutY="20" style="-fx-text-fill: #1A5872FF;" text="Aquí se mostrarán las valoraciones." />
+                </AnchorPane>
+            </Tab>
+            <Tab text="Sugerencias Compañeros">
+                <AnchorPane style="-fx-background-color: #FFFFFF;">
+                    <Label layoutX="20" layoutY="20" style="-fx-text-fill: #1A5872FF;" text="Aquí se mostrarán las sugerencias." />
+                </AnchorPane>
+            </Tab>
+            <Tab text="Solicitudes de Ayuda">
+                <AnchorPane style="-fx-background-color: #FFFFFF;">
+                    <Label layoutX="20" layoutY="20" style="-fx-text-fill: #1A5872FF;" text="Aquí se mostrarán las solicitudes de ayuda." />
+                </AnchorPane>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

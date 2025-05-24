@@ -17,7 +17,7 @@ public class MensajeriaController {
     @FXML
     public void initialize() {
         // Ejemplo de contactos
-        listaContactos.getItems().addAll("Estudiante1", "Estudiante2", "Estudiante3");
+        listaContactos.getItems().addAll("Estudiante1", "Estudiante2", "Estudiante3", "Estudiante4", "Estudiante5", "Estudiante6");
 
         // Simulación de selección inicial
         listaContactos.getSelectionModel().selectFirst();

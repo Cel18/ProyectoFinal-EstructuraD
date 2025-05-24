@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="proyectofinal.Controladores.PerfilEstudianteController"
+            style="-fx-background-color: #F1F9F7;">
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="15">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+            <Label text="Perfil del Estudiante"
+                   style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
+
+            <GridPane hgap="10" vgap="10">
+                <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="lblId" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="lblNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Apellido:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="lblApellido" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Contraseña:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="lblContrasena" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Contenidos Publicados:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <Label fx:id="lblContenidos" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Promedio de Valoraciones:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <Label fx:id="lblPromedio" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Button text="Cerrar Sesión"
+                    onAction="#handleCerrarSesion"
+                    style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+        </VBox>
+    </center>
+
+    <right>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Conexiones"
+                   style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <ListView fx:id="listaConexiones" prefWidth="200" prefHeight="250"/>
+        </VBox>
+    </right>
+
+</BorderPane>
