@@ -1,29 +1,27 @@
 package proyectofinal.Modelo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Contenido implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
+
     private String tema;
     private String autor;
-    private String tipo; //hayq eu cambiar el tipo
+    private TipoContenido tipo;
     private String id;
     private List<Valoracion> valoraciones;
 
     //Constructor de la clase Contenido
-    public Contenido(String tema, String autor, String tipo, String id) {
+    public Contenido(String tema, String autor, TipoContenido tipo, String id) {
         this.tema = tema;
         this.autor = autor;
         this.tipo = tipo;
         this.id = id;
         this.valoraciones = new ArrayList();
-    }
-
-    public void agregarValoracion(Valoracion valoracion) {}
-    public double calcularPrimedioValoracion(){
-        return 0;
     }
 
     //Getters y Setters
@@ -43,11 +41,11 @@ public class Contenido implements Serializable {
         this.autor = autor;
     }
 
-    public String getTipo() {
+    public TipoContenido getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoContenido tipo) {
         this.tipo = tipo;
     }
 
@@ -65,5 +63,10 @@ public class Contenido implements Serializable {
 
     public void setValoraciones(List<Valoracion> valoraciones) {
         this.valoraciones = valoraciones;
+    }
+
+    @Override
+    public String toString() {
+        return tema + ", " + autor + ", " + tipo + ", " + id + ".";
     }
 }

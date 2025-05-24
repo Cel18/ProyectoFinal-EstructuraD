@@ -1,9 +1,12 @@
 package proyectofinal.Modelo;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Valoracion implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
+
     private Estudiante estudiante;
     private Contenido contenido;
     private int puntuacion;

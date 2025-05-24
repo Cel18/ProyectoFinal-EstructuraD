@@ -7,6 +7,7 @@ module com.example.proyectofinalestructurad {
     requires org.kordamp.bootstrapfx.core;
     requires java.logging;
     requires jdk.accessibility;
+    requires jdk.jshell;
 
     opens proyectofinal to javafx.fxml;
     exports proyectofinal;

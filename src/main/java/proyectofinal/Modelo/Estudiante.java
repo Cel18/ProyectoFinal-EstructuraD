@@ -1,36 +1,95 @@
 package proyectofinal.Modelo;
 
+import proyectofinal.Utilidades.Utilidades;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
 
 public class Estudiante extends Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private String apellido;
-    private List<Contenido> contenidosPublicados;
-    private List<Valoracion> valoraciones;
-    private List<Estudiante> conexiones;
+    private static ListaEnlazada<Contenido> contenidosPublicados = new ListaEnlazada<>();
+    private static ListaEnlazada<Valoracion> valoraciones = new ListaEnlazada<>();
+    private static ListaEnlazada<Estudiante> conexiones = new ListaEnlazada<>();
 
     //Constructor de la clase Estudiante
     public Estudiante(String nombre, String apellido, String contrasena) {
         super(nombre, contrasena);
         this.apellido = apellido;
-        this.contenidosPublicados = new ArrayList<>();
-        this.valoraciones = new ArrayList<>();
-        this.conexiones = new ArrayList<>();
     }
 
-    public void publicarContenido(Contenido contenido) {}
-    public void valorarContenido(Contenido contenido, int puntaje) {}
-    public void solicitarAyuda(SolicitudAyuda solicitudAyuda) {}
-    public void agregarConexion(Estudiante estudiante) {}
-    public List<Estudiante> obtenerSugerenciasDeConexion(){
-        return List.of();
+    //Métodos para buscar contenido
+
+    public void buscarContenidoTema(String tema) {
+        //Falta
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTema en Estudiante. Correcto.");
     }
-    public void unirseAGrupoEstudio(List<Estudiante> grupo) {}
-    public void enviarMensaje(Estudiante destinatario, String mensaje) {}
-    public List<Contenido> obtenerContenidoPublicado(){
-        return List.of();
+
+    public void buscarContenidoAutor(String autor) {
+        //Falta
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoAutor en Estudiante. Correcto.");
+    }
+
+    public void buscarContenidoTipo(String tipo) {
+        //Falta
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTipo en Estudiante. Correcto.");
+    }
+
+    //Método para publicar contenido
+
+    public void publicarContenido(Contenido contenido) {
+        if (!contenidosPublicados.buscarNodo(contenido)) {
+            contenidosPublicados.insertarNodoInicio(contenido);
+            Utilidades.getInstance().escribirLog(Level.INFO,"Método publicarContenido en Estudiante. Correcto.");
+        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en Estudiante. Incorrecto, el contenido ya está publicado.");
+    }
+
+    //Método para valorar contenido
+
+    public void valorarContenido(Contenido contenido, int puntaje) {
+        //Falta
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método valorarContenido en Estudiante. Correcto.");
+    }
+
+    public void solicitarAyuda(SolicitudAyuda solicitudAyuda) {
+        //Falta
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método solicitarAyuda en Estudiante. Correcto.");
+    }
+
+    //Método para agregar conexión con otro estudiante
+
+    public void agregarConexion(Estudiante estudiante) {
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Correcto.");
+    }
+
+    //Método para la sugerencia de la conexión
+
+    public ListaEnlazada<Estudiante> obtenerSugerenciasDeConexion() {
+
+        Utilidades.getInstance().escribirLog(Level.INFO,"Método obtenerSugerenciasDeConexion en Estudiante. Correcto.");
+        return null;
+    }
+
+    //Método para unirse a un grupo de estudio
+
+    public void unirseAGrupoEstudio(ListaEnlazada<Estudiante> grupo) {
+
+        Utilidades.getInstance().escribirLog(Level.INFO,"Método unirseAGrupoEstudio en Estudiante. Correcto.");
+    }
+
+    //Método para enviar mensaje a otro estudiante
+
+    public void enviarMensaje(Estudiante destinatario, String mensaje) {
+
+    }
+
+    //Método para obtener los contenidos publicados por el estudiante
+
+    public ListaEnlazada<Contenido> obtenerContenidoPublicado() {
+        return null;
     }
 
     //Getters and Setters
@@ -42,27 +101,15 @@ public class Estudiante extends Usuario implements Serializable {
         this.apellido = apellido;
     }
 
-    public List<Contenido> getContenidosPublicados() {
+    public ListaEnlazada<Contenido> getContenidosPublicados() {
         return contenidosPublicados;
     }
 
-    public void setContenidosPublicados(List<Contenido> contenidosPublicados) {
-        this.contenidosPublicados = contenidosPublicados;
-    }
-
-    public List<Valoracion> getValoraciones() {
+    public ListaEnlazada<Valoracion> getValoraciones() {
         return valoraciones;
     }
 
-    public void setValoraciones(List<Valoracion> valoraciones) {
-        this.valoraciones = valoraciones;
-    }
-
-    public List<Estudiante> getConexiones() {
+    public ListaEnlazada<Estudiante> getConexiones() {
         return conexiones;
-    }
-
-    public void setConexiones(List<Estudiante> conexiones) {
-        this.conexiones = conexiones;
     }
 }
