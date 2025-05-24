@@ -1,39 +1,73 @@
 package proyectofinal.Modelo;
 
+import proyectofinal.Utilidades.Persistencia;
 import proyectofinal.Utilidades.Utilidades;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.logging.Level;
 
 public class Estudiante extends Usuario implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String apellido;
-    private static ListaEnlazada<Contenido> contenidosPublicados = new ListaEnlazada<>();
-    private static ListaEnlazada<Valoracion> valoraciones = new ListaEnlazada<>();
-    private static ListaEnlazada<Estudiante> conexiones = new ListaEnlazada<>();
+    private final RedSocial redSocial = Persistencia.cargarRedSocial();
+    private ListaEnlazada<Contenido> contenidosPublicados;
+    private ListaEnlazada<Valoracion> valoraciones;
+    private ListaEnlazada<Estudiante> conexiones;
 
     //Constructor de la clase Estudiante
     public Estudiante(String nombre, String apellido, String contrasena) {
         super(nombre, contrasena);
         this.apellido = apellido;
+        this.contenidosPublicados = Persistencia.cargarContenido();
+        this.valoraciones = Persistencia.cargarValoraciones();
+        this.conexiones = Persistencia.cargarEstudianteLista();
     }
 
     //Métodos para buscar contenido
 
-    public void buscarContenidoTema(String tema) {
-        //Falta
-        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTema en Estudiante. Correcto.");
+    public NodoContenido<Contenido> buscarContenidoTema(String tema) {
+        NodoContenido<Contenido> nodoRecorrer = contenidosPublicados.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getTema().equals(tema)) {
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTema en Estudiante. Correcto.");
+                return nodoRecorrer;
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTema en Estudiante. Incorrecto, no se encontró el contenido publicado.");
+        return null;
     }
 
-    public void buscarContenidoAutor(String autor) {
-        //Falta
-        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoAutor en Estudiante. Correcto.");
+    public NodoContenido<Contenido> buscarContenidoAutor(String autor) {
+        NodoContenido<Contenido> nodoRecorrer = contenidosPublicados.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getAutor().equals(autor)) {
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoAutor en Estudiante. Correcto.");
+                return nodoRecorrer;
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoAutor en Estudiante. Incorrecto, no se encontró el contenido publicado.");
+        return null;
     }
 
-    public void buscarContenidoTipo(String tipo) {
-        //Falta
-        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTipo en Estudiante. Correcto.");
+    public NodoContenido<Contenido> buscarContenidoTipo(TipoContenido tipo) {
+        NodoContenido<Contenido> nodoRecorrer = contenidosPublicados.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getTipo().equals(tipo)) {
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTipo en Estudiante. Correcto.");
+                return nodoRecorrer;
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoTipo en Estudiante. Incorrecto, no se encontró el contenido publicado.");
+        return null;
     }
 
     //Método para publicar contenido
@@ -41,6 +75,7 @@ public class Estudiante extends Usuario implements Serializable {
     public void publicarContenido(Contenido contenido) {
         if (!contenidosPublicados.buscarNodo(contenido)) {
             contenidosPublicados.insertarNodoInicio(contenido);
+            Persistencia.guardarContenidos(contenidosPublicados);
             Utilidades.getInstance().escribirLog(Level.INFO,"Método publicarContenido en Estudiante. Correcto.");
         }
         Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en Estudiante. Incorrecto, el contenido ya está publicado.");

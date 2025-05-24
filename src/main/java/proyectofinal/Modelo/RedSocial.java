@@ -13,8 +13,8 @@ public class RedSocial implements Serializable {
     private String nombre;
     private Map<String, Estudiante> estudiantes;
     private Map<String, Moderador> moderadores;
-    private Map<String, Contenido> contenidos;
-    private NodoContenido raiz;
+    private ListaEnlazada<Contenido> contenidos;
+    private NodoContenido<Contenido> raiz;
     private GrafoAfinidad grafo;
     private ColaPrioridadSolicitudes colaSolicitudes;
     private List<GrupoEstudio> grupoEstudios;
@@ -22,9 +22,9 @@ public class RedSocial implements Serializable {
 
     public RedSocial(String nombre) {
         this.nombre = nombre;
-        this.estudiantes = Persistencia.cargarEstudiante();
+        this.estudiantes = Persistencia.cargarEstudianteMapa();
         this.moderadores = Persistencia.cargarModeradores();
-        this.contenidos = new HashMap<>();
+        this.contenidos = Persistencia.cargarContenido();
         this.grafo = new GrafoAfinidad();
         this.colaSolicitudes = new ColaPrioridadSolicitudes();
         this.grupoEstudios = new ArrayList<>();
@@ -32,7 +32,7 @@ public class RedSocial implements Serializable {
 
     public void registrarEstudiante(Estudiante estudiante) {
         estudiantes.put(estudiante.getId(), estudiante);
-        Persistencia.guardarEstudiantes(estudiantes);
+        Persistencia.guardarEstudiantesMapa(estudiantes);
     }
 
     public void registrarModerador(Moderador mod) {
@@ -102,11 +102,11 @@ public class RedSocial implements Serializable {
         this.moderadores = moderadores;
     }
 
-    public Map<String, Contenido> getContenidos() {
+    public ListaEnlazada<Contenido> getContenidos() {
         return contenidos;
     }
 
-    public void setContenidos(Map<String, Contenido> contenidos) {
+    public void setContenidos(ListaEnlazada<Contenido> contenidos) {
         this.contenidos = contenidos;
     }
 

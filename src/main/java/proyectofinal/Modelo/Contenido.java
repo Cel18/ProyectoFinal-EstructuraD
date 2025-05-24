@@ -1,9 +1,9 @@
 package proyectofinal.Modelo;
 
+import proyectofinal.Utilidades.Persistencia;
+
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Contenido implements Serializable {
     @Serial
@@ -13,7 +13,7 @@ public class Contenido implements Serializable {
     private String autor;
     private TipoContenido tipo;
     private String id;
-    private List<Valoracion> valoraciones;
+    private ListaEnlazada<Valoracion> valoraciones;
 
     //Constructor de la clase Contenido
     public Contenido(String tema, String autor, TipoContenido tipo, String id) {
@@ -21,7 +21,7 @@ public class Contenido implements Serializable {
         this.autor = autor;
         this.tipo = tipo;
         this.id = id;
-        this.valoraciones = new ArrayList();
+        this.valoraciones = Persistencia.cargarValoraciones();
     }
 
     //Getters y Setters
@@ -57,12 +57,8 @@ public class Contenido implements Serializable {
         this.id = id;
     }
 
-    public List<Valoracion> getValoraciones() {
+    public ListaEnlazada<Valoracion> getValoraciones() {
         return valoraciones;
-    }
-
-    public void setValoraciones(List<Valoracion> valoraciones) {
-        this.valoraciones = valoraciones;
     }
 
     @Override
