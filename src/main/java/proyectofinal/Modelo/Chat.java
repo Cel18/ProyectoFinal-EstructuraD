@@ -1,43 +1,67 @@
 package proyectofinal.Modelo;
 
-import java.util.ArrayList;
-import java.util.List;
+import proyectofinal.Utilidades.Utilidades;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
 
 public class Chat {
-    private String idChat;
-    private Estudiante estudiante1;
-    private Estudiante estudiante2;
-    private List<Mensaje> mensajes;
+    private static final int PUERTO = 12345;
+    private static final CopyOnWriteArrayList<Socket> estudiantes = new CopyOnWriteArrayList<>();
 
-    public Chat(String idChat, Estudiante estudiante1, Estudiante estudiante2) {
-        this.idChat = idChat;
-        this.estudiante1 = estudiante1;
-        this.setEstudiante2(estudiante2);
-        this.mensajes = new ArrayList<>();
+    public static void main(String[] args) {
+        try (ServerSocket serverSocket = new ServerSocket(PUERTO)) {
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método main en Chat. Correcto, creación del serverSocket.");
+
+            while (true) {
+                Socket estudianteSocket = serverSocket.accept();
+                estudiantes.add(estudianteSocket);
+                new Thread(new ClienteHandler(estudianteSocket));
+            }
+        } catch (IOException e) {
+            Utilidades.getInstance().escribirLog(Level.WARNING, "Método main en Chat. Incorrecto, excepción.");
+            e.printStackTrace();
+        }
     }
 
-    public void enviarMensaje(Estudiante emisor, String contenido) {
-        Mensaje mensaje = new Mensaje(emisor, contenido);
-        mensajes.add(mensaje);
-    }
+    static class ClienteHandler implements Runnable {
+        private final Socket socket;
 
-    public List<Mensaje> getMensajes() {
-        return mensajes;
-    }
+        public ClienteHandler(Socket socket) {
+            this.socket = socket;
+        }
 
-    public Estudiante getEstudiante1() {
-        return estudiante1;
-    }
+        @Override
+        public void run() {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+                String mensaje;
+                while ((mensaje = reader.readLine()) != null ) {
+                    manejarMensaje(mensaje);
+                }
+            } catch (IOException e) {
+                Utilidades.getInstance().escribirLog(Level.WARNING, "Método run en Chat. Incorrecto, excepción.");
+                e.printStackTrace();
+            } finally {
+                estudiantes.remove(socket);
+            }
+        }
 
-    public Estudiante getEstudiante2() {
-        return estudiante2;
-    }
-
-    public String getIdChat() {
-        return idChat;
-    }
-
-    public void setEstudiante2(Estudiante estudiante2) {
-        this.estudiante2 = estudiante2;
+        private void manejarMensaje(String mensaje) {
+            for (Socket estudiante : estudiantes) {
+                try {
+                    PrintWriter writer = new PrintWriter(estudiante.getOutputStream(), true);
+                    writer.println(mensaje);
+                } catch (IOException e) {
+                    Utilidades.getInstance().escribirLog(Level.WARNING, "Método manejarMensaje en Chat. Incorrecto, excepción.");
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

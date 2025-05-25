@@ -27,6 +27,6 @@ public class Mensaje {
 
     @Override
     public String toString() {
-        return "[" + fechaHora + "] " + emisor.getNombre() + ": " + contenido;
+        return "[" + fechaHora.toLocalTime() + "] " + ": " + contenido;
     }
 }

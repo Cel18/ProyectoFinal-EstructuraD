@@ -2,10 +2,8 @@ package proyectofinal.Controladores;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import proyectofinal.Modelo.RedSocial;
 
 public class MensajeriaController {
-    private RedSocial redSocial;
 
     @FXML
     private ListView<String> listaContactos;
@@ -45,9 +43,5 @@ public class MensajeriaController {
             areaMensajes.appendText("\nYo: " + mensaje);
             campoMensaje.clear();
         }
-    }
-
-    public void setRedSocial(RedSocial redSocial) {
-        this.redSocial = redSocial;
     }
 }
