@@ -9,6 +9,7 @@ module com.example.proyectofinalestructurad {
     requires jdk.accessibility;
     requires jdk.jshell;
     requires gs.core;
+    requires gs.ui.javafx;
 
     opens proyectofinal to javafx.fxml;
     exports proyectofinal;

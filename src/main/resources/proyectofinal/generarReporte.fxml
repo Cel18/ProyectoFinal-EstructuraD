@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="proyectofinal.Controladores.GenerarReporteController"
+      spacing="15"
+      alignment="TOP_CENTER"
+      style="-fx-background-color: #D8EFE9;">
+
+    <padding>
+        <Insets top="20" right="25" bottom="20" left="25"/>
+    </padding>
+
+    <Label text="Generar Reporte"
+           style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
+
+    <VBox spacing="10" alignment="TOP_LEFT" prefWidth="500">
+
+        <Label text="Seleccione el reporte a generar:" style="-fx-font-weight: bold;"/>
+
+        <CheckBox fx:id="cbContenidosValorados" text="Contenidos más valorados"/>
+        <CheckBox fx:id="cbEstudiantesConexiones" text="Estudiantes con más conexiones"/>
+        <CheckBox fx:id="cbCaminosCortos" text="Caminos más cortos entre dos estudiantes"/>
+        <CheckBox fx:id="cbDeteccionComunidades" text="Detección de comunidades de estudio (clústeres)"/>
+        <CheckBox fx:id="cbNivelesParticipacion" text="Niveles de participación"/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="0" bottom="0" left="0"/>
+            </padding>
+            <Label text="Parámetros (si aplica): "/>
+            <TextField fx:id="parametro1" promptText="Ej. Estudiante 1" prefWidth="150"/>
+            <TextField fx:id="parametro2" promptText="Ej. Estudiante 2" prefWidth="150"/>
+        </HBox>
+
+    </VBox>
+
+    <Button text="Generar Reporte" onAction="#handleGenerarReporte"
+            style="-fx-background-color: #24789C; -fx-text-fill: white;" prefWidth="200"/>
+
+    <TextArea fx:id="areaReporte" editable="false" prefHeight="300" prefWidth="500"
+              style="-fx-border-color: #728BB1; -fx-background-color: #F8F8F8;"/>
+
+</VBox>
