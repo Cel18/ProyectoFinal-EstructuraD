@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import proyectofinal.Modelo.RedSocial;
 
 public class GenerarReporteController {
+    private RedSocial redSocial;
 
     @FXML
     private TextArea areaReporte;
@@ -35,5 +37,9 @@ public class GenerarReporteController {
     @FXML
     void handleGenerarReporte(ActionEvent event) {
 
+    }
+
+    public void setRedSocial(RedSocial redSocial) {
+        this.redSocial = redSocial;
     }
 }

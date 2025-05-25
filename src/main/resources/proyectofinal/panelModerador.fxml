@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx/17"
@@ -15,8 +17,20 @@
         <Insets top="20" bottom="20" left="25" right="25"/>
     </padding>
 
-    <Label text="Panel del Moderador"
-           style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
+    <AnchorPane>
+        <Label text="Panel del Moderador"
+               style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"
+               layoutX="0" layoutY="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+               maxWidth="Infinity"
+               alignment="CENTER"/>
+        <ImageView fx:id="imagenPerfil" fitHeight="40" fitWidth="40" pickOnBounds="true" preserveRatio="true"
+                   onMouseClicked="#irAPerfilModerador"
+                   AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <image>
+                <Image url="@Imagenes/perfil.png"/>
+            </image>
+        </ImageView>
+    </AnchorPane>
 
     <HBox spacing="20" alignment="CENTER">
         <VBox spacing="15" alignment="CENTER">
@@ -33,7 +47,8 @@
 
         <VBox spacing="10">
             <Label text="Visualización del Grafo" style="-fx-font-weight: bold;"/>
-            <Pane fx:id="panelGrafo" prefWidth="500" prefHeight="300" style="-fx-background-color: #ACDAD8; -fx-border-color: #728BB1;"/>
+            <Pane fx:id="panelGrafo" prefWidth="500" prefHeight="300"
+                  style="-fx-background-color: #ACDAD8; -fx-border-color: #728BB1;"/>
         </VBox>
     </HBox>
 

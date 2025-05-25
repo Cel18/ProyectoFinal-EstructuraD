@@ -3,11 +3,13 @@ package proyectofinal.Controladores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import proyectofinal.Modelo.RedSocial;
@@ -16,6 +18,7 @@ import java.io.IOException;
 
 public class PerfilEstudianteController {
     private RedSocial redSocial;
+    private String vistaAnterior;
 
     @FXML
     private Label lblId;
@@ -102,5 +105,32 @@ public class PerfilEstudianteController {
 
     public void setRedSocial(RedSocial redSocial) {
         this.redSocial = redSocial;
+    }
+
+    public void setVistaAnterior(String vistaAnterior) {this.vistaAnterior = vistaAnterior;}
+
+    @FXML
+    private void handleVolver(MouseEvent event) {
+        if (vistaAnterior == null) return;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(vistaAnterior));
+            Parent root = loader.load();
+
+            Object controller = loader.getController();
+            if (controller instanceof PanelEstudianteController) {
+                ((PanelEstudianteController) controller).setRedSocial(redSocial);
+            } else if (controller instanceof InicioController) {
+                ((InicioController) controller).setRedSocial(redSocial);
+            }
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene nuevaEscena = new Scene(root);
+            stage.setScene(nuevaEscena);
+            stage.sizeToScene();
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

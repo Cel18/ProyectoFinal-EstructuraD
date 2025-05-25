@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import proyectofinal.Modelo.RedSocial;
 
 public class GestionContenidosController {
+    private RedSocial redSocial;
 
     @FXML
     private TextField campoBusqueda;
@@ -26,5 +28,9 @@ public class GestionContenidosController {
     @FXML
     void handleEliminarContenido(ActionEvent event) {
 
+    }
+
+    public void setRedSocial(RedSocial redSocial) {
+        this.redSocial = redSocial;
     }
 }

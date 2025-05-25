@@ -1,63 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="proyectofinal.Controladores.PerfilEstudianteController"
-            style="-fx-background-color: #F1F9F7;">
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane style="-fx-background-color: #F1F9F7;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.Controladores.PerfilEstudianteController">
 
     <center>
         <VBox alignment="TOP_CENTER" spacing="15">
             <padding>
-                <Insets top="30" right="30" bottom="30" left="30"/>
+                <Insets bottom="30" left="30" right="30" top="30" />
             </padding>
+            <HBox alignment="TOP_LEFT" prefHeight="24.0" prefWidth="20.0">
+                <ImageView fx:id="btnVolver" fitHeight="24" fitWidth="24" onMouseClicked="#handleVolver" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Imagenes/volver.png" />
+                    </image>
+                </ImageView>
+            </HBox>
             <ImageView fx:id="imagenPerfil" fitHeight="40" fitWidth="40" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@Imagenes/perfil.png" />
                 </image>
             </ImageView>
-            <Label text="Perfil del Estudiante"
-                   style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
+            <Label prefHeight="25.0" prefWidth="208.0" style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;" text="Perfil del Estudiante" />
 
-            <GridPane hgap="10" vgap="10">
-                <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <Label fx:id="lblId" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <GridPane hgap="10" prefWidth="208.0" vgap="10">
+                <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="lblId" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <Label fx:id="lblNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label fx:id="lblNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Apellido:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <Label fx:id="lblApellido" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label fx:id="lblApellido" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Contraseña:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <Label fx:id="lblContrasena" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label fx:id="lblContrasena" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                <Label text="Contenidos Publicados:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <Label fx:id="lblContenidos" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label text="Contenidos Publicados:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Label fx:id="lblContenidos" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                <Label text="Promedio de Valoraciones:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <Label fx:id="lblPromedio" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <Label text="Promedio de Valoraciones:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <Label fx:id="lblPromedio" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
 
-            <Button text="Cerrar Sesión"
-                    onAction="#handleCerrarSesion"
-                    style="-fx-background-color: #24789C; -fx-text-fill: white;"/>
+            <Button onAction="#handleCerrarSesion" prefWidth="87.0" style="-fx-background-color: #24789C; -fx-text-fill: white;" text="Cerrar Sesión" />
         </VBox>
     </center>
 
     <right>
-        <VBox spacing="10">
+        <VBox prefHeight="411.0" prefWidth="256.0" spacing="10">
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
-            <Label text="Conexiones"
-                   style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
-            <ListView fx:id="listaConexiones" prefWidth="200" prefHeight="250"/>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Conexiones" />
+            <ListView fx:id="listaConexiones" prefHeight="319.0" prefWidth="216.0" />
         </VBox>
     </right>
 

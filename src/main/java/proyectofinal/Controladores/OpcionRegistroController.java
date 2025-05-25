@@ -3,8 +3,10 @@ package proyectofinal.Controladores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import proyectofinal.Modelo.RedSocial;
 
@@ -44,5 +46,26 @@ public class OpcionRegistroController {
 
     public void setRedSocial(RedSocial redSocial) {
         this.redSocial = redSocial;
+    }
+
+    @FXML
+    private void handleVolver(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/login.fxml"));
+            Parent root = loader.load();
+
+            Object controller = loader.getController();
+            if (controller instanceof LoginController) {
+                ((LoginController) controller).setRedSocial(redSocial);
+            }
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene nuevaEscena = new Scene(root);
+            stage.setScene(nuevaEscena);
+            stage.sizeToScene();
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

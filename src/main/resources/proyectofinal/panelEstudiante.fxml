@@ -17,9 +17,14 @@
 <BorderPane prefHeight="800" prefWidth="1280" style="-fx-background-color: #D8EFE9FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.Controladores.PanelEstudianteController">
 
     <left>
-        <VBox alignment="TOP_CENTER" prefHeight="762.0" prefWidth="154.0" spacing="20" style="-fx-background-color: #ACDAD8FF;">
-            <Button style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" text="Grupos de Estudio" />
-            <Button style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" text="Mensajería" />
+        <VBox alignment="TOP_CENTER" prefHeight="762.0" prefWidth="154.0" spacing="20" style="-fx-background-color: #ACDAD8FF;" xmlns:fx="http://javafx.com/fxml/1">
+            <Button text="Grupos de Estudio"
+                    onAction="#abrirGrupoEstudio"
+                    style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+            <Button text="Mensajería"
+                    onAction="#abrirMensajeria"
+                    style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" />
         </VBox>
     </left>
 
@@ -28,11 +33,11 @@
             <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-        <ImageView fx:id="imagenPerfil" fitHeight="40" fitWidth="40" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@Imagenes/perfil.png" />
-                </image>
-            </ImageView>
+        <ImageView fx:id="imagenPerfil" fitHeight="40" fitWidth="40" pickOnBounds="true" preserveRatio="true" onMouseClicked="#irAPerfil">
+            <image>
+                <Image url="@Imagenes/perfil.png" />
+            </image>
+        </ImageView>
         </HBox>
     </top>
 

@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import proyectofinal.Modelo.GrupoEstudio;
+import proyectofinal.Modelo.RedSocial;
 
 public class GrupoEstudioController {
+    private RedSocial redSocial;
 
     @FXML
     private ListView<String> listaGrupos;
@@ -37,5 +40,9 @@ public class GrupoEstudioController {
             alerta.setContentText("Selecciona un grupo para unirte.");
             alerta.showAndWait();
         }
+    }
+
+    public void setRedSocial(RedSocial redSocial) {
+        this.redSocial = redSocial;
     }
 }

@@ -27,6 +27,7 @@ public class InicioController {
             } else if (controller instanceof PerfilEstudianteController) {
                 ((PerfilEstudianteController) controller).setRedSocial(redSocial);
                 ((PerfilEstudianteController) controller).cargarPerfil();
+                ((PerfilEstudianteController) controller).setVistaAnterior("/proyectofinal/inicio.fxml");
             }
 
             Stage stage = obtenerStage();

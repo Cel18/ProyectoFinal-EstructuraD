@@ -46,17 +46,22 @@ public class PanelModeradorController {
 
     @FXML
     private void abrirGestionUsuarios() {
-        abrirVentana("GestionUsuarios.fxml", "Gestión de Usuarios");
+        abrirVentana("gestionUsuarios.fxml", "Gestión de Usuarios");
     }
 
     @FXML
     private void abrirGestionContenidos() {
-        abrirVentana("GestionContenidos.fxml", "Gestión de Contenidos");
+        abrirVentana("gestionContenidos.fxml", "Gestión de Contenidos");
     }
 
     @FXML
     private void abrirGenerarReporte() {
-        abrirVentana("GenerarReporte.fxml", "Generar Reporte");
+        abrirVentana("generarReporte.fxml", "Generar Reporte");
+    }
+
+    @FXML
+    private void irAPerfilModerador() {
+        irAPerfil();
     }
 
     private void abrirVentana(String fxmlArchivo, String titulo) {
@@ -64,14 +69,44 @@ public class PanelModeradorController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/" + fxmlArchivo));
             Pane root = loader.load();
 
+            Object controller = loader.getController();
+            if (controller instanceof GestionUsuariosController) {
+                ((GestionUsuariosController) controller).setRedSocial(redSocial);
+            } else  if (controller instanceof GestionContenidosController) {
+                ((GestionContenidosController) controller).setRedSocial(redSocial);
+            } else  if (controller instanceof GenerarReporteController) {
+                ((GenerarReporteController) controller).setRedSocial(redSocial);
+            }
+
             Stage stage = new Stage();
             stage.setTitle(titulo);
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);  // Bloquea la ventana padre
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Aquí puedes mostrar una alerta o loguear mejor el error
+        }
+    }
+
+    @FXML
+    private void irAPerfil() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/proyectofinal/perfilModerador.fxml"));
+            Pane root = loader.load();
+
+            PerfilModeradorController controller = loader.getController();
+            controller.setRedSocial(redSocial);
+            controller.cargarPerfil();
+
+            Stage stage = (Stage) panelGrafo.getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("Perfil Moderador");
+            stage.centerOnScreen();
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
