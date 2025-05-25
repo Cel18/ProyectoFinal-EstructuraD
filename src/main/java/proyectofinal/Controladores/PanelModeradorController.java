@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class PanelModeradorController {
     private RedSocial redSocial;
+    private boolean grafoDibujado = false;
 
     @FXML
     private Pane panelGrafo;
@@ -23,6 +24,7 @@ public class PanelModeradorController {
     public void setRedSocial(RedSocial redSocial) {
         this.redSocial = redSocial;
         dibujarGrafo();
+        grafoDibujado = true;
     }
 
     private void dibujarGrafo() {
@@ -38,8 +40,14 @@ public class PanelModeradorController {
 
         FxViewPanel viewPanel = (FxViewPanel) viewer.addDefaultView(false);
 
-        viewPanel.setMinSize(panelGrafo.getPrefWidth(), panelGrafo.getPrefHeight());
-        viewPanel.setMaxSize(panelGrafo.getPrefWidth(), panelGrafo.getPrefHeight());
+        double width = panelGrafo.getWidth() > 0 ? panelGrafo.getWidth() : panelGrafo.getPrefWidth();
+        double height = panelGrafo.getHeight() > 0 ? panelGrafo.getHeight() : panelGrafo.getPrefHeight();
+
+        viewPanel.setMinSize(width, height);
+        viewPanel.setMaxSize(width, height);
+
+        panelGrafo.setMinSize(width, height);
+        panelGrafo.setMaxSize(width, height);
 
         panelGrafo.getChildren().add(viewPanel);
     }

@@ -14,11 +14,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        if (redSocial.getNombre().isEmpty() || redSocial.getEstudiantes().isEmpty() || redSocial.getModeradores().isEmpty()) {
+        redSocial.getGrafo().mostrarGrafo();
+        if (redSocial == null || redSocial.getEstudiantes().isEmpty()) {
             redSocial = new RedSocial("RedSocialAprendizaje");
-
             Persistencia.guardarRedSocial(redSocial);
         }
+
         System.out.println("== Estudiantes cargados ==");
         redSocial.getEstudiantes().forEach((id, est) -> {
             System.out.println("Nombre: " + est.getNombre() + ", Contraseña: " + est.getContrasena());

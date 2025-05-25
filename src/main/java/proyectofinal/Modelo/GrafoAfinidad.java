@@ -1,5 +1,6 @@
 package proyectofinal.Modelo;
 
+import javafx.util.Pair;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -12,6 +13,7 @@ public class GrafoAfinidad implements Serializable {
 
     private transient Graph graph;
     private Map<String, Estudiante> mapaEstudiantes; // Para facilitar recuperación
+    private Set<Pair<String, String>> conexiones;
 
     public GrafoAfinidad() {
         graph = new SingleGraph("Grafo de Afinidad");
@@ -23,6 +25,7 @@ public class GrafoAfinidad implements Serializable {
                         "edge { fill-color: lightgray; }");
 
         mapaEstudiantes = new HashMap<>();
+        conexiones = new HashSet<>();
     }
 
     public void agregarEstudiante(Estudiante e) {
@@ -37,8 +40,13 @@ public class GrafoAfinidad implements Serializable {
         String id1 = e1.getNombre();
         String id2 = e2.getNombre();
         String edgeId = id1 + "-" + id2;
+        //String reverseEdgeId = id2 + "-" + id1;
 
-        if (graph.getEdge(edgeId) == null && graph.getEdge(id2 + "-" + id1) == null) {
+        Pair<String, String> conexion = new Pair<>(id1, id2);
+        Pair<String, String> conexionReversa = new Pair<>(id2, id1);
+
+        if (!conexiones.contains(conexion) && !conexiones.contains(conexionReversa)) {
+            conexiones.add(conexion);
             graph.addEdge(edgeId, id1, id2);
         }
     }
@@ -77,6 +85,11 @@ public class GrafoAfinidad implements Serializable {
     }
 
     public void mostrarGrafo() {
+        reconstruirGrafoSiEsNecesario();
+        if (graph == null) {
+            System.out.println("El grafo no ha sido inicializado.");
+            return;
+        }
         for (Node nodo : graph) {
             System.out.print(nodo.getId() + " está conectado con: ");
             for (Edge arista : nodo.edges().toList()) {
@@ -96,9 +109,24 @@ public class GrafoAfinidad implements Serializable {
             graph.setAttribute("ui.stylesheet",
                     "node { fill-color: deepskyblue; size: 20px; text-alignment: under; text-size: 14px; }" +
                             "edge { fill-color: lightgray; }");
-
+            //estudiantes
+            if (mapaEstudiantes == null) {
+                mapaEstudiantes = new HashMap<>();
+            }
             for (Estudiante e : mapaEstudiantes.values()) {
                 agregarEstudiante(e);
+            }
+            //conexiones
+            if (conexiones == null) {
+                conexiones = new HashSet<>();
+            }
+            for (Pair<String, String> par : conexiones) {
+                String id1 = par.getKey();
+                String id2 = par.getValue();
+                String edgeId = id1 + "-" + id2;
+                if (graph.getEdge(edgeId) == null && graph.getEdge(id2 + "-" + id1) == null) {
+                    graph.addEdge(edgeId, id1, id2);
+                }
             }
         }
     }
