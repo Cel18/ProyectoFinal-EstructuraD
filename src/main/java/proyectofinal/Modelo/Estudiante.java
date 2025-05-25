@@ -166,4 +166,23 @@ public class Estudiante extends Usuario implements Serializable {
     public ListaEnlazada<Estudiante> getConexiones() {
         return conexiones;
     }
+
+    @Override
+    public String toString() {
+        return getNombreCompleto();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Estudiante that = (Estudiante) obj;
+        return this.getNombre().equals(that.getNombre()) &&
+                this.getApellido().equals(that.getApellido());
+    }
+
+    @Override
+    public int hashCode() {
+        return (getNombre() + getApellido()).hashCode();
+    }
 }

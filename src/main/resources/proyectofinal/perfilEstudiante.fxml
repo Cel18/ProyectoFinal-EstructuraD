@@ -4,6 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="proyectofinal.Controladores.PerfilEstudianteController"
@@ -14,6 +16,11 @@
             <padding>
                 <Insets top="30" right="30" bottom="30" left="30"/>
             </padding>
+            <ImageView fx:id="imagenPerfil" fitHeight="40" fitWidth="40" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@Imagenes/perfil.png" />
+                </image>
+            </ImageView>
             <Label text="Perfil del Estudiante"
                    style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;"/>
 

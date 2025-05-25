@@ -8,6 +8,7 @@ module com.example.proyectofinalestructurad {
     requires java.logging;
     requires jdk.accessibility;
     requires jdk.jshell;
+    requires gs.core;
 
     opens proyectofinal to javafx.fxml;
     exports proyectofinal;

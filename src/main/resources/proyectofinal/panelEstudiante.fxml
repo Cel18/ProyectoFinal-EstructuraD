@@ -30,7 +30,7 @@
             </padding>
         <ImageView fx:id="imagenPerfil" fitHeight="40" fitWidth="40" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@Imagenes/dragon.png" />
+                    <Image url="@Imagenes/perfil.png" />
                 </image>
             </ImageView>
         </HBox>

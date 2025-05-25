@@ -35,11 +35,11 @@ public class OpcionRegistroController {
     }
 
     public void handleRegistroEstudiante(ActionEvent actionEvent) {
-        abrirVentana("registroEstudiante.fxml", "Registro Estudiante");
+        abrirVentana("/proyectofinal/registroEstudiante.fxml", "Registro Estudiante");
     }
 
     public void handleRegistroModerador(ActionEvent actionEvent) {
-        abrirVentana("registroModerador.fxml", "Registro Moderador");
+        abrirVentana("/proyectofinal/registroModerador.fxml", "Registro Moderador");
     }
 
     public void setRedSocial(RedSocial redSocial) {

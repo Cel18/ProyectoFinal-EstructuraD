@@ -36,4 +36,17 @@ public class GrafoAfinidad implements Serializable {
     public List<GrupoEstudio> detectarGrupos(){
         return List.of();
     }
+
+    public Map<Estudiante, List<Estudiante>> obtenerAdyacencias() {
+        return adyacencias;
+    }
+    public void mostrarGrafo() {
+        for (Estudiante e : adyacencias.keySet()) {
+            System.out.print(e.getNombreCompleto() + " está conectado con: ");
+            for (Estudiante vecino : adyacencias.get(e)) {
+                System.out.print(vecino.getNombreCompleto() + ", ");
+            }
+            System.out.println();
+        }
+    }
 }
