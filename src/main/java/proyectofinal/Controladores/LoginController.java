@@ -34,6 +34,7 @@ public class LoginController {
             redSocial.setEstudianteActivo(est);
             redirigirVista("inicio.fxml");
         } else if (mod != null) {
+            redSocial.setModeradorActivo(mod);
             redirigirVista("panelModerador.fxml");
         } else {
             mostrarAlerta("Error de inicio de sesión", "Nombre de usuario o contraseña incorrectos.");
@@ -85,7 +86,7 @@ public class LoginController {
     @FXML
     public void handleCargarDatos(ActionEvent actionEvent) {
         try {
-            redSocial.cargarDatosPrueba();
+            this.redSocial = redSocial.cargarDatosPrueba();
             mostrarAlerta("Datos Cargados", "Se cargó una nueva red social con datos de prueba.");
         } catch (Exception e) {
             e.printStackTrace();

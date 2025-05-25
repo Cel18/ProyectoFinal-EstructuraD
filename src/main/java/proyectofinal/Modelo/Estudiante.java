@@ -96,8 +96,13 @@ public class Estudiante extends Usuario implements Serializable {
     //Método para agregar conexión con otro estudiante
 
     public void agregarConexion(Estudiante estudiante) {
-
-        Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Correcto.");
+        if (!conexiones.buscarNodo(estudiante)) {
+            conexiones.insertarNodoInicio(estudiante);
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Correcto.");
+            Persistencia.guardarEstudiantesLista(conexiones);
+        } else {
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Ya existe la conexión.");
+        }
     }
 
     //Método para la sugerencia de la conexión

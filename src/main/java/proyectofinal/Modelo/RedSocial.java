@@ -85,51 +85,7 @@ public class RedSocial implements Serializable {
     public GrupoEstudio generarGrupoEstudio(Estudiante base){
         return null;
     }
-    public void cargarDatosPrueba(){
-        RedSocial redSocial = new RedSocial("RedSocialAprendizajePrueba");
 
-        Estudiante est1 = new Estudiante("Sofia", "Buitrago", "333");
-        Estudiante est2 = new Estudiante("Luis", "Martinez", "123");
-        Estudiante est3 = new Estudiante("Valeria", "Torres", "456");
-        Estudiante est4 = new Estudiante("Martinez", "Luis", "676");
-        Estudiante est5 = new Estudiante("Lucia", "Martinez", "789");
-
-        Moderador mod = new Moderador("Celeste", "111");
-
-        redSocial.registrarEstudiante(est1);
-        redSocial.registrarEstudiante(est2);
-        redSocial.registrarEstudiante(est3);
-        redSocial.registrarEstudiante(est4);
-        redSocial.registrarEstudiante(est5);
-        redSocial.registrarModerador(mod);
-
-        // Crear el grafo con conexiones manuales (datos quemados)
-        GrafoAfinidad grafo = new GrafoAfinidad();
-        grafo.agregarEstudiante(est1);
-        grafo.agregarEstudiante(est2);
-        grafo.agregarEstudiante(est3);
-        grafo.agregarEstudiante(est4);
-        grafo.agregarEstudiante(est5);
-        grafo.conectar(est1, est2);
-        grafo.conectar(est2, est3);
-        grafo.conectar(est3, est4);
-        grafo.conectar(est4, est5);
-        grafo.conectar(est5, est1);
-        grafo.conectar(est1, est4);
-
-        redSocial.setGrafo(grafo);
-
-        Persistencia.guardarRedSocial(redSocial);
-
-        System.out.println("== Estudiantes cargados ==");
-        redSocial.getEstudiantes().forEach((id, estudiante) -> {
-            System.out.println("Nombre: " + estudiante.getNombre() + ", Contraseña: " + estudiante.getContrasena());
-        });
-        System.out.println("== Moderadores cargados ==");
-        redSocial.getModeradores().forEach((id, moderador) -> {
-            System.out.println("Nombre: " + moderador.getNombre() + ", Contraseña: " + moderador.getContrasena());
-        });
-    }
     public List<Contenido>  obtenerTodosContenidos() {
         return List.of();
     }
@@ -213,5 +169,75 @@ public class RedSocial implements Serializable {
 
     public void setModeradorActivo(Moderador moderadorActivo) {
         this.moderadorActivo = moderadorActivo;
+    }
+
+    public RedSocial cargarDatosPrueba(){
+        //red social
+        RedSocial redSocial = new RedSocial("RedSocialAprendizajePrueba");
+
+        //estudiantes
+        Estudiante est1 = new Estudiante("Sofia", "Buitrago", "333");
+        Estudiante est2 = new Estudiante("Luis", "Martinez", "123");
+        Estudiante est3 = new Estudiante("Valeria", "Torres", "456");
+        Estudiante est4 = new Estudiante("Martinez", "Luis", "676");
+        Estudiante est5 = new Estudiante("Lucia", "Martinez", "789");
+
+        //moderadores
+        Moderador mod = new Moderador("Celeste", "111");
+
+        redSocial.registrarEstudiante(est1);
+        redSocial.registrarEstudiante(est2);
+        redSocial.registrarEstudiante(est3);
+        redSocial.registrarEstudiante(est4);
+        redSocial.registrarEstudiante(est5);
+        redSocial.registrarModerador(mod);
+
+        //Grafo con conexiones manuales
+        GrafoAfinidad grafo = new GrafoAfinidad();
+        grafo.agregarEstudiante(est1);
+        grafo.agregarEstudiante(est2);
+        grafo.agregarEstudiante(est3);
+        grafo.agregarEstudiante(est4);
+        grafo.agregarEstudiante(est5);
+
+        grafo.conectar(est1, est2);
+        grafo.conectar(est2, est3);
+        grafo.conectar(est3, est4);
+        grafo.conectar(est4, est5);
+        grafo.conectar(est5, est1);
+        grafo.conectar(est1, est4);
+
+        // Conexiones de estudiantes
+        est1.agregarConexion(est2);
+        est1.agregarConexion(est5);
+        est1.agregarConexion(est4);
+
+        est2.agregarConexion(est1);
+        est2.agregarConexion(est3);
+
+        est3.agregarConexion(est2);
+        est3.agregarConexion(est4);
+
+        est4.agregarConexion(est3);
+        est4.agregarConexion(est5);
+        est4.agregarConexion(est1);
+
+        est5.agregarConexion(est4);
+        est5.agregarConexion(est1);
+
+        //Guardar
+        redSocial.setGrafo(grafo);
+        Persistencia.guardarRedSocial(redSocial);
+
+        System.out.println("== Estudiantes cargados ==");
+        redSocial.getEstudiantes().forEach((id, estudiante) -> {
+            System.out.println("Nombre: " + estudiante.getNombre() + ", Contraseña: " + estudiante.getContrasena());
+        });
+        System.out.println("== Moderadores cargados ==");
+        redSocial.getModeradores().forEach((id, moderador) -> {
+            System.out.println("Nombre: " + moderador.getNombre() + ", Contraseña: " + moderador.getContrasena());
+        });
+
+        return redSocial;
     }
 }
