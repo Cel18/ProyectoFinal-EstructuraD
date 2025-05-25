@@ -4,23 +4,24 @@ import proyectofinal.Utilidades.Persistencia;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Contenido implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     private String tema;
-    private String autor;
+    private Usuario autor;
     private TipoContenido tipo;
     private String id;
     private ListaEnlazada<Valoracion> valoraciones;
 
     //Constructor de la clase Contenido
-    public Contenido(String tema, String autor, TipoContenido tipo, String id) {
+    public Contenido(String tema, Usuario autor, TipoContenido tipo) {
         this.tema = tema;
         this.autor = autor;
         this.tipo = tipo;
-        this.id = id;
+        this.id = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         this.valoraciones = Persistencia.cargarValoraciones();
     }
 
@@ -33,11 +34,11 @@ public class Contenido implements Serializable {
         this.tema = tema;
     }
 
-    public String getAutor() {
+    public Usuario getAutor() {
         return autor;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(Usuario autor) {
         this.autor = autor;
     }
 

@@ -78,7 +78,7 @@ public class PerfilEstudianteController {
 
                 listaConexiones.getItems().clear();
                 for (var conexion : estudiante.getConexiones()) {
-                    listaConexiones.getItems().add(conexion.getNombreCompleto()); // O toString()
+                    listaConexiones.getItems().add(conexion.getNombreCompleto());
                 }
             } else {
                 mostrarAlerta("Error", "No hay estudiante activo.");

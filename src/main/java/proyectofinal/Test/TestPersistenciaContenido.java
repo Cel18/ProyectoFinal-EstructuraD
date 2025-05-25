@@ -11,9 +11,9 @@ public class TestPersistenciaContenido {
         Estudiante e1 = new Estudiante("Celeste", "Buitrago", "pato12345");
         Estudiante e2 = new Estudiante("Juan", "García", "linux123");
 
-        Contenido c1 = new Contenido("Mickey 17","No sé", TipoContenido.LECTOESCRITURA, "001");
-        Contenido c2 = new Contenido("Pim pam trucu trucu","Español promedio", TipoContenido.BIOLOGIA, "002");
-        Contenido c3 = new Contenido("Mi Estrella Blanca","Fondo Flamenco", TipoContenido.LECTOESCRITURA, "003");
+        Contenido c1 = new Contenido("Mickey 17",e1, TipoContenido.LECTOESCRITURA);
+        Contenido c2 = new Contenido("Pim pam trucu trucu",e2, TipoContenido.BIOLOGIA);
+        Contenido c3 = new Contenido("Mi Estrella Blanca",e1, TipoContenido.LECTOESCRITURA);
 
         redSocial.registrarEstudiante(e1);
         redSocial.registrarEstudiante(e2);

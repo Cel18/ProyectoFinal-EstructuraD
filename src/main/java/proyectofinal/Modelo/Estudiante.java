@@ -13,7 +13,7 @@ public class Estudiante extends Usuario implements Serializable {
 
     private String apellido;
     private final RedSocial redSocial = Persistencia.cargarRedSocial();
-    private ListaEnlazada<Contenido> contenidosPublicados;
+    private ListaEnlazada<Contenido> contenidosPublicados;  //ahora que lo pienso, el contenido no tiene fecha :o
     private ListaEnlazada<Valoracion> valoraciones;
     private ListaEnlazada<Estudiante> conexiones;
 
@@ -23,7 +23,7 @@ public class Estudiante extends Usuario implements Serializable {
         this.apellido = apellido;
         this.contenidosPublicados = Persistencia.cargarContenido();
         this.valoraciones = Persistencia.cargarValoraciones();
-        this.conexiones = Persistencia.cargarEstudianteLista();
+        this.conexiones = Persistencia.cargarEstudianteLista(); //problemita acá con respecto a las conexiones que aparecen en la interfaz
     }
 
     //Métodos para buscar contenido
@@ -83,9 +83,21 @@ public class Estudiante extends Usuario implements Serializable {
 
     //Método para valorar contenido
 
-    public void valorarContenido(Contenido contenido, int puntaje) {
-        //Falta
-        Utilidades.getInstance().escribirLog(Level.INFO, "Método valorarContenido en Estudiante. Correcto.");
+    public void valorarContenido(Contenido contenido, int puntuacion, String comentario) {
+        if (puntuacion < 1 || puntuacion > 5) {
+            Utilidades.getInstance().escribirLog(Level.WARNING, "Método valorarContenido en Estudiante. Puntaje fuera de rango.");
+            return;
+        }
+
+        Valoracion nuevaValoracion = new Valoracion(this, contenido, puntuacion, comentario);
+
+        if (!valoraciones.buscarNodo(nuevaValoracion)) {
+            valoraciones.insertarNodoInicio(nuevaValoracion);
+            Persistencia.guardarValoraciones(valoraciones);
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método valorarContenido en Estudiante. Correcto.");
+        } else {
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método valorarContenido en Estudiante. Ya se ha valorado este contenido.");
+        }
     }
 
     public void solicitarAyuda(SolicitudAyuda solicitudAyuda) {
@@ -133,18 +145,17 @@ public class Estudiante extends Usuario implements Serializable {
     }
 
     public double getPromedioValoraciones() {
-        if (valoraciones == null || valoraciones.getTamanio() == 0) return 0;
-        int suma = 0;
-        int count = 0;
+        double suma = 0;
+        int cantidad = 0;
 
         NodoContenido<Valoracion> actual = valoraciones.getInicial();
         while (actual != null) {
             suma += actual.getContenido().getPuntuacion();
-            count++;
+            cantidad++;
             actual = actual.getDerecho();
         }
 
-        return count > 0 ? (double) suma / count : 0;
+        return cantidad > 0 ? suma / cantidad : 0;
     }
 
     public String getNombreCompleto() {

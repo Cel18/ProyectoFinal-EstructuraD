@@ -62,7 +62,9 @@
                             <padding>
                                 <Insets bottom="0" left="0" right="0" top="10" />
                             </padding>
-                            <Button fx:id="btnPublicar" text="Publicar" />
+                            <Button text="Publicar"
+                                    onAction="#publicar"
+                                    style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" />
                         </HBox>
                     </bottom>
                 </BorderPane>

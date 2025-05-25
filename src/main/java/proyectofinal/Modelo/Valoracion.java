@@ -3,6 +3,10 @@ package proyectofinal.Modelo;
 import java.io.Serial;
 import java.io.Serializable;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
+
 public class Valoracion implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,7 +23,6 @@ public class Valoracion implements Serializable {
         this.comentario = comentario;
     }
 
-    //getters and setters
     public Estudiante getEstudiante() {
         return estudiante;
     }
@@ -50,5 +53,28 @@ public class Valoracion implements Serializable {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Valoracion that)) return false;
+        return Objects.equals(estudiante, that.estudiante) &&
+                Objects.equals(contenido, that.contenido);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(estudiante, contenido);
+    }
+
+    @Override
+    public String toString() {
+        return "Valoracion{" +
+                "estudiante=" + estudiante.getNombreCompleto() +
+                ", contenido=" + contenido.getTema() +
+                ", puntuacion=" + puntuacion +
+                ", comentario='" + comentario + '\'' +
+                '}';
     }
 }

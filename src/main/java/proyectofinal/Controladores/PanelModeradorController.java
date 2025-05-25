@@ -16,7 +16,6 @@ import java.io.IOException;
 
 public class PanelModeradorController {
     private RedSocial redSocial;
-    private boolean grafoDibujado = false;
 
     @FXML
     private Pane panelGrafo;
@@ -24,7 +23,6 @@ public class PanelModeradorController {
     public void setRedSocial(RedSocial redSocial) {
         this.redSocial = redSocial;
         dibujarGrafo();
-        grafoDibujado = true;
     }
 
     private void dibujarGrafo() {

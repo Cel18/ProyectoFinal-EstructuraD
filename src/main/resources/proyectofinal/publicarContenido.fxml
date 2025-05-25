@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" spacing="15" style="-fx-background-color: #D8EFE9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.Controladores.PublicarContenidoController">
+
+    <padding>
+        <Insets bottom="20" left="25" right="25" top="20" />
+    </padding>
+
+    <Label style="-fx-font-weight: bold; -fx-font-size: 22px; -fx-text-fill: #1A5872;" text="Publicar Contenido" />
+
+    <VBox alignment="TOP_LEFT" prefWidth="500" spacing="10">
+
+        <Label style="-fx-font-weight: bold;" text="Tema:" />
+        <TextField fx:id="txtTema" maxWidth="500" promptText="Tema del contenido" />
+
+        <Label style="-fx-font-weight: bold;" text="Tipo de contenido:" />
+        <ComboBox fx:id="comboTipo" maxWidth="505.0" prefHeight="25.0" prefWidth="505.0" promptText="Selecciona tipo de contenido" />
+
+        <Label style="-fx-font-weight: bold;" text="Autor:" />
+        <TextField fx:id="txtAutor" editable="false" maxWidth="515.0" prefHeight="25.0" prefWidth="515.0" promptText="Autor (automático)" />
+
+    </VBox>
+
+    <HBox alignment="CENTER" spacing="15">
+        <Button fx:id="btnPublicar" onAction="#publicarContenido" prefWidth="120" style="-fx-background-color: #24789C; -fx-text-fill: white;" text="Publicar" />
+    </HBox>
+
+</VBox>

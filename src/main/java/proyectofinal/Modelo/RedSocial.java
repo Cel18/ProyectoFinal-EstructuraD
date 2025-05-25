@@ -225,6 +225,31 @@ public class RedSocial implements Serializable {
         est5.agregarConexion(est4);
         est5.agregarConexion(est1);
 
+        //Crear contenidos de prueba
+        Contenido cont1 = new Contenido("Introducción a Java", est1, TipoContenido.PROGRAMACION);
+        Contenido cont2 = new Contenido("Estructuras de Datos", est2, TipoContenido.PROGRAMACION);
+        Contenido cont3 = new Contenido("Escornoplonchos", est1, TipoContenido.BIOLOGIA);
+
+        // Publicarlos
+        redSocial.publicarContenido(est1, cont1);
+        redSocial.publicarContenido(est2, cont2);
+        redSocial.publicarContenido(est1, cont3);
+
+        // Crear valoraciones
+        Valoracion val1 = new Valoracion(est1, cont1, 5, "Muy buen contenido, fácil de entender.");
+        Valoracion val2 = new Valoracion(est2, cont1, 4, "Excelente, pero faltaron ejemplos prácticos.");
+        Valoracion val3 = new Valoracion(est1, cont2, 3, "Interesante, pero un poco denso.");
+
+        // Agregar valoraciones a los estudiantes
+        est1.getValoraciones().insertarNodoInicio(val1);
+        est2.getValoraciones().insertarNodoInicio(val2);
+        est1.getValoraciones().insertarNodoInicio(val3);
+
+
+        // Guardar valoraciones
+        Persistencia.guardarValoraciones(est1.getValoraciones());
+        Persistencia.guardarValoraciones(est2.getValoraciones());
+
         //Guardar
         redSocial.setGrafo(grafo);
         Persistencia.guardarRedSocial(redSocial);

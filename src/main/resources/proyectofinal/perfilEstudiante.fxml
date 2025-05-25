@@ -16,7 +16,7 @@
 <BorderPane style="-fx-background-color: #F1F9F7;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.Controladores.PerfilEstudianteController">
 
     <center>
-        <VBox alignment="TOP_CENTER" spacing="15">
+        <VBox alignment="TOP_CENTER" prefHeight="411.0" prefWidth="436.0" spacing="15">
             <padding>
                 <Insets bottom="30" left="30" right="30" top="30" />
             </padding>
@@ -71,7 +71,7 @@
     </center>
 
     <right>
-        <VBox prefHeight="411.0" prefWidth="256.0" spacing="10">
+        <VBox prefHeight="411.0" prefWidth="264.0" spacing="10">
             <padding>
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
