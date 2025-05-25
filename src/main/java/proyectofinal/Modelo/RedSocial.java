@@ -1,12 +1,14 @@
 package proyectofinal.Modelo;
 
 import proyectofinal.Utilidades.Persistencia;
+import proyectofinal.Utilidades.Utilidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class RedSocial implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -59,7 +61,16 @@ public class RedSocial implements Serializable {
         return null;
     }
 
-    public void publicarContenido(Estudiante autor, Contenido contenido) {}
+    public void publicarContenido(Estudiante autor, Contenido contenido) {
+        if (!contenidos.buscarNodo(contenido)) {
+            contenidos.insertarNodoInicio(contenido);
+            autor.publicarContenido(contenido);
+            Persistencia.guardarContenidos(contenidos);
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en RedSocial. Correcto.");
+        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en RedSocial. Incorrecto.");
+    }
+
     public List<Contenido> buscarContenidoPorTema(String tema) {
         return List.of();
     }

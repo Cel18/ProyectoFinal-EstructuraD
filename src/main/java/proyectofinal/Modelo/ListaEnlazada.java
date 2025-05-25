@@ -2,10 +2,15 @@ package proyectofinal.Modelo;
 
 import proyectofinal.Utilidades.Utilidades;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.logging.Level;
 
-public class ListaEnlazada <T> implements Iterable<T>{
+public class ListaEnlazada <T> implements Iterable<T>, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private NodoContenido<T> inicial;
     private int tamanio;
 
@@ -102,23 +107,7 @@ public class ListaEnlazada <T> implements Iterable<T>{
         return false;
     }
 
-    //Getters y Setters
-    public NodoContenido<T> getInicial() {
-        return inicial;
-    }
-
-    public void setContenido(NodoContenido<T> inicial) {
-        this.inicial = inicial;
-    }
-
-    public int getTamanio() {
-        return tamanio;
-    }
-
-    public void setTamanio(int tamanio) {
-        this.tamanio = tamanio;
-    }
-
+    //Método para iterar la lista
 
     private class IteradorLista implements Iterator<T> {
         private NodoContenido<T> actual = inicial;
@@ -134,5 +123,22 @@ public class ListaEnlazada <T> implements Iterable<T>{
             actual = actual.getDerecho();
             return contenido;
         }
+    }
+
+    //Getters y Setters
+    public NodoContenido<T> getInicial() {
+        return inicial;
+    }
+
+    public void setContenido(NodoContenido<T> inicial) {
+        this.inicial = inicial;
+    }
+
+    public int getTamanio() {
+        return tamanio;
+    }
+
+    public void setTamanio(int tamanio) {
+        this.tamanio = tamanio;
     }
 }

@@ -1,6 +1,12 @@
 package proyectofinal.Modelo;
 
-public class NodoContenido <T> {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class NodoContenido <T> implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private T contenido;
     private NodoContenido<T> izquierdo;
     private NodoContenido<T> derecho;
