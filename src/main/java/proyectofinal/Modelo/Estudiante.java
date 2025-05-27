@@ -13,7 +13,7 @@ public class Estudiante extends Usuario implements Serializable {
 
     private String apellido;
     private final RedSocial redSocial = Persistencia.cargarRedSocial();
-    private ListaEnlazada<Contenido> contenidosPublicados;  //ahora que lo pienso, el contenido no tiene fecha :o
+    private ListaEnlazada<Contenido> contenidosPublicados;
     private ListaEnlazada<Valoracion> valoraciones;
     private ListaEnlazada<Estudiante> conexiones;
 
@@ -21,9 +21,9 @@ public class Estudiante extends Usuario implements Serializable {
     public Estudiante(String nombre, String apellido, String contrasena) {
         super(nombre, contrasena);
         this.apellido = apellido;
-        this.contenidosPublicados = Persistencia.cargarContenido();
-        this.valoraciones = Persistencia.cargarValoraciones();
-        this.conexiones = Persistencia.cargarEstudianteLista(); //problemita acá con respecto a las conexiones que aparecen en la interfaz
+        this.contenidosPublicados = new ListaEnlazada<>();
+        this.valoraciones = new ListaEnlazada<>();
+        this.conexiones = new ListaEnlazada<>();
     }
 
     //Métodos para buscar contenido
@@ -94,15 +94,31 @@ public class Estudiante extends Usuario implements Serializable {
         if (!valoraciones.buscarNodo(nuevaValoracion)) {
             valoraciones.insertarNodoInicio(nuevaValoracion);
             Persistencia.guardarValoraciones(valoraciones);
+
+            // Agregar la valoración también al contenido
+            if (!contenido.getValoraciones().buscarNodo(nuevaValoracion)) {
+                contenido.getValoraciones().insertarNodoInicio(nuevaValoracion);
+                Persistencia.guardarValoraciones(contenido.getValoraciones());
+            }
+
+            // Crear conexión con otros estudiantes que ya hayan valorado este contenido
+            NodoContenido<Valoracion> actual = contenido.getValoraciones().getInicial();
+            while (actual != null) {
+                Valoracion valoracionExistente = actual.getContenido();
+                Estudiante otroEstudiante = valoracionExistente.getEstudiante();
+
+                if (!otroEstudiante.equals(this)) {
+                    this.agregarConexion(otroEstudiante);
+                    otroEstudiante.agregarConexion(this);
+                }
+
+                actual = actual.getDerecho();
+            }
+
             Utilidades.getInstance().escribirLog(Level.INFO, "Método valorarContenido en Estudiante. Correcto.");
         } else {
             Utilidades.getInstance().escribirLog(Level.INFO, "Método valorarContenido en Estudiante. Ya se ha valorado este contenido.");
         }
-    }
-
-    public void solicitarAyuda(SolicitudAyuda solicitudAyuda) {
-        //Falta
-        Utilidades.getInstance().escribirLog(Level.INFO, "Método solicitarAyuda en Estudiante. Correcto.");
     }
 
     //Método para agregar conexión con otro estudiante
@@ -111,7 +127,7 @@ public class Estudiante extends Usuario implements Serializable {
         if (!conexiones.buscarNodo(estudiante)) {
             conexiones.insertarNodoInicio(estudiante);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Correcto.");
-            Persistencia.guardarEstudiantesLista(conexiones);
+            Persistencia.guardarEstudiante(this);
         } else {
             Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Ya existe la conexión.");
         }
@@ -136,12 +152,6 @@ public class Estudiante extends Usuario implements Serializable {
 
     public void enviarMensaje(Estudiante destinatario, String mensaje) {
 
-    }
-
-    //Método para obtener los contenidos publicados por el estudiante
-
-    public ListaEnlazada<Contenido> obtenerContenidoPublicado() {
-        return null;
     }
 
     public double getPromedioValoraciones() {

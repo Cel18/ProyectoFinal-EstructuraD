@@ -55,9 +55,9 @@ public class Persistencia {
 
     //Persistencia de la lista de los estudiantes
 
-    public static void guardarEstudiantesLista(ListaEnlazada<Estudiante> estudiantes) {
+    public static void guardarEstudiante(Estudiante estudiante) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("estudiantes_lista.dat"))) {
-            oos.writeObject(estudiantes);
+            oos.writeObject(estudiante);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método guardarEstudiantes en Persistencia. Correcto.");
         } catch (IOException e) {
             Utilidades.getInstance().escribirLog(Level.INFO, "Método guardarEstudiantesLista en Persistencia. Incorrecto.");
@@ -65,14 +65,12 @@ public class Persistencia {
         }
     }
 
-    public static ListaEnlazada<Estudiante> cargarEstudianteLista() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiantes_lista.dat"))) {
-            Utilidades.getInstance().escribirLog(Level.INFO, "Método cargarEstudiantesLista en Persistencia. Correcto.");
-            return (ListaEnlazada<Estudiante>) ois.readObject();
+    public static Estudiante cargarEstudiante(String nombre) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiante_" + nombre + ".dat"))) {
+            return (Estudiante) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            Utilidades.getInstance().escribirLog(Level.INFO, "Método cargarEstudiantesLista en Persistencia. Incorrecto.");
             e.printStackTrace();
-            return new ListaEnlazada<>();
+            return null;
         }
     }
 

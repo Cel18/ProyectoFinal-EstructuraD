@@ -14,7 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        redSocial.getGrafo().mostrarGrafo();
+        //redSocial.getGrafo().mostrarGrafo();
         if (redSocial == null || redSocial.getEstudiantes().isEmpty()) {
             redSocial = new RedSocial("RedSocialAprendizaje");
             Persistencia.guardarRedSocial(redSocial);
