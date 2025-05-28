@@ -76,9 +76,38 @@ public class GrafoAfinidad implements Serializable {
         return List.of();
     }
 
-    public List<GrupoEstudio> detectarGrupos() {
-        return List.of();
+    /*public List<GrupoEstudio> detectarGrupos() {
+        List<GrupoEstudio> grupos = new ArrayList<>();
+        Set<String> visitados = new HashSet<>();
+
+        for (Node nodo : graph) {
+            String id = nodo.getId();
+            if (!visitados.contains(id)) {
+                GrupoEstudio grupo = new GrupoEstudio("Grupo_" + (grupos.size() + 1));
+                dfsNodo(nodo, visitados, grupo);
+                grupos.add(grupo);
+            }
+        }
+
+        return grupos;
     }
+
+
+    private void dfsNodo(Node nodo, Set<String> visitados, GrupoEstudio grupo) {
+        visitados.add(nodo.getId());
+
+        Estudiante estudiante = mapaEstudiantes.get(nodo.getId());
+        if (estudiante != null) {
+            grupo.getIntegrantes().insertarNodoInicio(estudiante);
+        }
+
+        for (Edge edge : nodo.edges()) {
+            Node vecino = edge.getOpposite(nodo);
+            if (!visitados.contains(vecino.getId())) {
+                dfsNodo(vecino, visitados, grupo);
+            }
+        }
+    }*/
 
     public Graph getGraph() {
         return graph;

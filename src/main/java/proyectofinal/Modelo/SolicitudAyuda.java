@@ -1,6 +1,10 @@
 package proyectofinal.Modelo;
 
-public class SolicitudAyuda implements Comparable<SolicitudAyuda>{
+import java.io.Serializable;
+
+public class SolicitudAyuda implements Comparable<SolicitudAyuda>, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Estudiante estudiante;
     private String tema;
     private int urgencia;

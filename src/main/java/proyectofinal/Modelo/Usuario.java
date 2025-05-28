@@ -13,11 +13,6 @@ public abstract class Usuario implements Serializable {
         this.nombre = nombre;
         this.contrasena = contrasena;
     }
-
-    public boolean autenticarConstrasena(String id){
-        return this.contrasena.equals(id);
-    }
-
     //getters and setters
 
     public String getId() {

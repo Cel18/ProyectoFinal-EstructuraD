@@ -2,18 +2,21 @@ package proyectofinal.Modelo;
 
 import proyectofinal.Utilidades.Utilidades;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.logging.Level;
 
 public class ColaPrioridadSolicitudes implements Serializable {
+    private static final long serialVersionUID = -967026327586962527L;
 
     private PriorityQueue<SolicitudAyuda> cola;
 
     public ColaPrioridadSolicitudes() {
-        this.cola = new PriorityQueue<>(Comparator.comparingInt(SolicitudAyuda::getUrgencia).reversed());
+        this.cola = new PriorityQueue<>(new UrgenciaComparator());
     }
+
 
     // Agrega la solicitud ordenándola por prioridad (mayor urgencia primero)
 
@@ -55,6 +58,16 @@ public class ColaPrioridadSolicitudes implements Serializable {
         Utilidades.getInstance().escribirLog(Level.INFO, "Método obtenerTodasLasSolicitudes en ColaPrioridadSolicitudes. Correcto.");
         return new PriorityQueue<>(cola); // Evita exponer la lista original
     }
+
+    class UrgenciaComparator implements Comparator<SolicitudAyuda>, Serializable {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public int compare(SolicitudAyuda s1, SolicitudAyuda s2) {
+            return Integer.compare(s2.getUrgencia(), s1.getUrgencia()); // Mayor urgencia primero
+        }
+    }
+
 
     // Para debug o impresión
 

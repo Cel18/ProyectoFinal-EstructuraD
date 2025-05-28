@@ -394,7 +394,7 @@ public class RedSocial implements Serializable {
         // Crear estudiantes
         Estudiante est1 = new Estudiante("Sofia", "Buitrago", "333");
         Estudiante est2 = new Estudiante("Luis", "Martinez", "123");
-        Estudiante est3 = new Estudiante("Valeria", "Torres", "456");
+        Estudiante est3 = new Estudiante("Sara", "Torres", "456");
         Estudiante est4 = new Estudiante("Fernando", "José", "676");
         Estudiante est5 = new Estudiante("Lucia", "Martinez", "789");
 
