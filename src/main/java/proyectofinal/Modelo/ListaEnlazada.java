@@ -137,4 +137,8 @@ public class ListaEnlazada <T> implements Iterable<T>, Serializable {
     public int getTamanio() {
         return tamanio;
     }
+
+    public void setInicial(NodoContenido<T> inicial) {
+        this.inicial = inicial;
+    }
 }

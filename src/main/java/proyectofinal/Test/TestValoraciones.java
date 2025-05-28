@@ -50,7 +50,7 @@ public class TestValoraciones {
 
         // Promedio de valoraciones de e1
         System.out.println("Promedio valoraciones de " + e1.getNombreCompleto() + ": " +
-                e1.getPromedioValoraciones());
+                e1.getPromedioValoracionesRecibidas());
 
         // Mostrar conexiones
         System.out.println("Conexiones de " + e1.getNombreCompleto() + ":");

@@ -175,6 +175,30 @@ public class Estudiante extends Usuario implements Serializable {
         return cantidad > 0 ? suma / cantidad : 0;
     }
 
+    public double getPromedioValoracionesRecibidas() {
+        double suma = 0;
+        int cantidad = 0;
+
+        NodoContenido<Contenido> nodoContenido = contenidosPublicados.getInicial();
+
+        while (nodoContenido != null) {
+            Contenido contenido = nodoContenido.getContenido();
+            NodoContenido<Valoracion> valoracionNodo = contenido.getValoraciones().getInicial();
+
+            while (valoracionNodo != null) {
+                suma += valoracionNodo.getContenido().getPuntuacion();
+                cantidad++;
+                valoracionNodo = valoracionNodo.getDerecho();
+            }
+
+            nodoContenido = nodoContenido.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método getPromedioValoracionesRecibidas en Estudiante. Correcto.");
+        return cantidad > 0 ? suma / cantidad : 0;
+    }
+
+
     //Método para agregar conexión con otro estudiante
 
     public void agregarConexion(Estudiante estudiante) {
@@ -239,9 +263,11 @@ public class Estudiante extends Usuario implements Serializable {
 
     //Método para enviar mensaje a otro estudiante
 
-    public void enviarMensaje(Estudiante destinatario, String mensaje) {
-
-    }
+    /*public void enviarMensaje(Estudiante destinatario, String mensajeTexto) {
+        Mensaje mensaje = new Mensaje(this, destinatario, mensajeTexto, LocalDateTime.now());
+        redSocial.agregarMensaje(mensaje);
+        Utilidades.getInstance().escribirLog(Level.INFO, "Mensaje enviado correctamente.");
+    }*/
 
     //Método para generar el nombre completo del estudiante
 
@@ -262,12 +288,20 @@ public class Estudiante extends Usuario implements Serializable {
         return contenidosPublicados;
     }
 
+    public void setContenidosPublicados(ListaEnlazada<Contenido> contenidosPublicados) {
+        this.contenidosPublicados = contenidosPublicados;
+    }
+
     public ListaEnlazada<Valoracion> getValoraciones() {
         return valoraciones;
     }
 
     public ListaEnlazada<Estudiante> getConexiones() {
         return conexiones;
+    }
+
+    public void setConexiones(ListaEnlazada<Estudiante> conexiones) {
+        this.conexiones = conexiones;
     }
 
     //Override
@@ -283,7 +317,7 @@ public class Estudiante extends Usuario implements Serializable {
         if (obj == null || getClass() != obj.getClass()) return false;
         Estudiante that = (Estudiante) obj;
         return this.getNombre().equals(that.getNombre()) &&
-                this.getApellido().equals(that.getApellido());
+                this.apellido.equals(that.apellido);
     }
 
     @Override

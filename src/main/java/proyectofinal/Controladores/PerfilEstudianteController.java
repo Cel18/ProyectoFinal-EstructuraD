@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import proyectofinal.Modelo.ListaEnlazada;
 import proyectofinal.Modelo.RedSocial;
 
 import java.io.IOException;
@@ -74,11 +75,17 @@ public class PerfilEstudianteController {
                 lblApellido.setText(estudiante.getApellido());
                 lblContrasena.setText(estudiante.getContrasena());
                 lblContenidos.setText(String.valueOf(estudiante.getContenidosPublicados().getTamanio()));
-                lblPromedio.setText(String.format("%.2f", estudiante.getPromedioValoraciones()));
+                lblPromedio.setText(String.format("%.2f", estudiante.getPromedioValoracionesRecibidas()));
 
                 listaConexiones.getItems().clear();
-                for (var conexion : estudiante.getConexiones()) {
-                    listaConexiones.getItems().add(conexion.getNombreCompleto());
+
+                var conexiones = estudiante.getConexiones();
+                if (conexiones != null) {
+                    for (var conexion : conexiones) {
+                        listaConexiones.getItems().add(conexion.getNombreCompleto());
+                    }
+                } else {
+                    estudiante.setConexiones(new ListaEnlazada<>());
                 }
             } else {
                 mostrarAlerta("Error", "No hay estudiante activo.");

@@ -42,11 +42,10 @@ public class PublicarContenidoController {
                     return;
                 }
 
-                Usuario autor = estudiante;
+                Estudiante autor = estudiante;
                 Contenido nuevoContenido = new Contenido(tema, autor, tipo);
 
-                estudiante.getContenidosPublicados().insertarNodoInicio(nuevoContenido);
-                Persistencia.guardarContenidos(estudiante.getContenidosPublicados(), autor.getNombre());
+                redSocial.publicarContenido(autor, nuevoContenido);
 
                 txtTema.clear();
                 comboTipo.getSelectionModel().clearSelection();

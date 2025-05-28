@@ -32,6 +32,8 @@ public class LoginController {
 
         if (est != null) {
             redSocial.setEstudianteActivo(est);
+            ListaEnlazada<Contenido> contenidosCargados = Persistencia.cargarContenido(est.getNombreCompleto());
+            est.setContenidosPublicados(contenidosCargados);
             redirigirVista("inicio.fxml");
         } else if (mod != null) {
             redSocial.setModeradorActivo(mod);
@@ -87,6 +89,11 @@ public class LoginController {
     public void handleCargarDatos(ActionEvent actionEvent) {
         try {
             this.redSocial = redSocial.cargarDatosPrueba();
+
+            for (Estudiante est : redSocial.getEstudiantes().values()) {
+                ListaEnlazada<Contenido> contenidosCargados = Persistencia.cargarContenido(est.getNombreCompleto());
+                est.setContenidosPublicados(contenidosCargados);
+            }
             mostrarAlerta("Datos Cargados", "Se cargó una nueva red social con datos de prueba.");
         } catch (Exception e) {
             e.printStackTrace();

@@ -104,7 +104,7 @@ public class Persistencia {
         } catch (IOException | ClassNotFoundException e) {
             Utilidades.getInstance().escribirLog(Level.WARNING, "Método cargarGrafosAfinidad en Persistencia. Correcto.");
             e.printStackTrace();
-            return new ArrayList<>();
+            return new ArrayList<>(); //yo: mirar si necesita cambio
         }
     }
 
@@ -179,8 +179,8 @@ public class Persistencia {
 
     //Persistencia de la lista de las valoraciones
 
-    public static void guardarValoraciones(ListaEnlazada<Valoracion> valoraciones) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("valoraciones.dat"))) {
+    public static void guardarValoraciones(ListaEnlazada<Valoracion> valoraciones, String nombre) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("valoraciones_" + nombre + ".dat"))) {
             oos.writeObject(valoraciones);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método guardarValoraciones en Persistencia. Correcto.");
         } catch (IOException e) {

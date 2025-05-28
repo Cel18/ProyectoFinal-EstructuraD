@@ -107,8 +107,19 @@ public class RedSocial implements Serializable {
 
     //Métodos para buscar un contenido por tema, autor y tipo en Red Social
 
-    public List<Contenido> buscarContenidoPorTema(String tema) {
-        return List.of();
+    public ListaEnlazada<Contenido> buscarContenidosPorTema(String tema) {
+        NodoContenido<Contenido> nodoRecorrer = contenidos.getInicial();
+        ListaEnlazada<Contenido> listaContenidos = new ListaEnlazada<>();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getTema().equals(tema)) {
+                listaContenidos.insertarNodoInicio(nodoRecorrer.getContenido());
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoPorTema en RedSocial. Correcto.");
+        return listaContenidos;
     }
     public List<Contenido> buscarContenidoPorAutor(String autor) {
         return List.of();
@@ -281,11 +292,10 @@ public class RedSocial implements Serializable {
         Valoracion val2 = new Valoracion(est2, cont1, 4, "Excelente, pero faltaron ejemplos prácticos.");
         Valoracion val3 = new Valoracion(est1, cont2, 3, "Interesante, pero un poco denso.");
 
-        // Agregar valoraciones a los estudiantes
-        est1.getValoraciones().insertarNodoInicio(val1);
-        est2.getValoraciones().insertarNodoInicio(val2);
-        est1.getValoraciones().insertarNodoInicio(val3);
-
+        // Agregar valoraciones a los contenidos
+        cont1.getValoraciones().insertarNodoInicio(val1);
+        cont1.getValoraciones().insertarNodoInicio(val2);
+        cont2.getValoraciones().insertarNodoInicio(val3);
 
         // Guardar valoraciones
         Persistencia.guardarValoraciones(est1.getValoraciones());
@@ -304,6 +314,29 @@ public class RedSocial implements Serializable {
             System.out.println("Nombre: " + moderador.getNombre() + ", Contraseña: " + moderador.getContrasena());
         });
 
+        /*verificarArchivoContenidos(est1.getNombreCompleto());
+        verificarArchivoContenidos(est2.getNombreCompleto());
+
+        ListaEnlazada<Contenido> listaCargada = Persistencia.cargarContenido(est1.getNombreCompleto());
+        est1.setContenidosPublicados(listaCargada);
+
+        System.out.println("Contenidos cargados para " + est1.getNombreCompleto() + ":");
+        for (Contenido c : est1.getContenidosPublicados()) {
+            System.out.println("- " + c);
+        }*/
+
         return redSocial;
     }
+
+    /*public static void verificarArchivoContenidos(String nombreEstudiante) {
+        File archivo = new File("contenidos_" + nombreEstudiante + ".dat");
+        if (archivo.exists()) {
+            System.out.println("Archivo contenidos_" + nombreEstudiante + ".dat existe.");
+            System.out.println("Tamaño (bytes): " + archivo.length());
+            System.out.println("Última modificación: " + new java.util.Date(archivo.lastModified()));
+        } else {
+            System.out.println("Archivo contenidos_" + nombreEstudiante + ".dat NO existe.");
+        }
+    }*/
+
 }
