@@ -22,6 +22,7 @@ public class TestColaDePrioridad {
         //Guardar las solicitudes de ayuda
         ColaPrioridadSolicitudes cps = new ColaPrioridadSolicitudes();
 
+        //Edición de las solicitudes
         redSocial.agregarSolicitudAyuda(sy1);
         redSocial.agregarSolicitudAyuda(sy2);
 
