@@ -31,4 +31,13 @@ public class SolicitudAyuda implements Comparable<SolicitudAyuda>, Serializable 
     public int getUrgencia() {
         return urgencia;
     }
+
+    @Override
+    public String toString() {
+        return "SolicitudAyuda{" +
+                "estudiante=" + estudiante +
+                ", tema='" + tema + '\'' +
+                ", urgencia=" + urgencia +
+                '}';
+    }
 }
