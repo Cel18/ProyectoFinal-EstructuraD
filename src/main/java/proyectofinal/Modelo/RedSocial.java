@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class RedSocial implements Serializable {
     @Serial
@@ -90,7 +91,11 @@ public class RedSocial implements Serializable {
 
     public Estudiante buscarEstudiante(String nombre) {
         Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarEstudiante en RedSocial. Correcto.");
-        return estudiantes.get(nombre);
+        return estudiantes.values()
+                .stream()
+                .filter(e -> e.getNombreCompleto().toLowerCase().contains(nombre.toLowerCase()))
+                .findFirst()
+                .orElse(null);
     }
 
     //Método para publicar el contenido de un estudiante en Red Social

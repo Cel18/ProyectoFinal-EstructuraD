@@ -35,7 +35,7 @@ public class GestionUsuariosController {
             Estudiante estudiante = redSocial.buscarEstudiante(nombre);
             listaUsuarios.getItems().clear();
             if (estudiante != null) {
-                listaUsuarios.getItems().add(estudiante.getNombreCompleto());
+                listaUsuarios.getItems().add(estudiante.getNombre());
             } else {
                 listaUsuarios.getItems().add("No se encontró el estudiante: " + nombre);
             }
@@ -65,6 +65,7 @@ public class GestionUsuariosController {
 
     public void setRedSocial(RedSocial redSocial) {
         this.redSocial = redSocial;
+        mostrarEstudiantes();
     }
 
     private void abrirVentana(String fxmlPath, String titulo) {

@@ -110,6 +110,7 @@ public class GrafoAfinidad implements Serializable {
     }*/
 
     public Graph getGraph() {
+        reconstruirGrafoSiEsNecesario();
         return graph;
     }
 
