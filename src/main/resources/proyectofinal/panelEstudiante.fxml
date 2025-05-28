@@ -77,9 +77,9 @@
                     </bottom>
                 </BorderPane>
             </Tab>
-            <Tab text="Valoraciones">
+            <Tab text="Valoraciones" fx:id="tabValoraciones">
                 <AnchorPane style="-fx-background-color: #FFFFFF;">
-                    <Label layoutX="20" layoutY="20" style="-fx-text-fill: #1A5872FF;" text="Aquí se mostrarán las valoraciones." />
+                    <ListView fx:id="listaValoraciones" layoutX="20" layoutY="20" prefWidth="1080" prefHeight="700" />
                 </AnchorPane>
             </Tab>
             <Tab text="Sugerencias Compañeros">
