@@ -31,6 +31,9 @@ public class PanelEstudianteController{
     private Button btnBuscarContenido;
 
     @FXML
+    private ListView<Valoracion> listaValoraciones;
+
+    @FXML
     public void initialize() {
         btnBuscarContenido.setOnAction(e -> buscarContenidos());
     }
@@ -38,6 +41,7 @@ public class PanelEstudianteController{
     public void setRedSocial(RedSocial redSocial) {
         this.redSocial = redSocial;
         cargarContenidos();
+        cargarValoraciones();
     }
 
     private void buscarContenidos() {
@@ -243,6 +247,22 @@ public class PanelEstudianteController{
         if (estudianteActivo != null) {
             estudianteActivo.valorarContenido(contenidoSeleccionado, puntuacion, comentario);
             mostrarAlerta("Valoración realizada", "¡Contenido valorado correctamente!");
+        }
+    }
+
+    public void cargarValoraciones() {
+        if (redSocial != null) {
+            listaValoraciones.getItems().clear();
+
+            for (Estudiante est : redSocial.getEstudiantes().values()) {
+                for (Contenido contenido : est.getContenidosPublicados()) {
+                    for (Valoracion valoracion : contenido.getValoraciones()) {
+                        listaValoraciones.getItems().add(valoracion);
+                    }
+                }
+            }
+        } else {
+            mostrarAlerta("Error", "Red social no disponible.");
         }
     }
 }
