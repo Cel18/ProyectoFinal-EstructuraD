@@ -12,4 +12,9 @@ public class Moderador extends Usuario implements Serializable {
     public void generarReporteContenidos(){}
 
     public void analizarGrafoAfinidad(GrafoAfinidad grafo){}
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

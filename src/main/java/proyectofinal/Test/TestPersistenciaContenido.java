@@ -26,7 +26,7 @@ public class TestPersistenciaContenido {
     }
 
     public static void mostrarPersistencia() {
-        ListaEnlazada<Contenido> contenidosCargados = Persistencia.cargarContenido();
+        ListaEnlazada<Contenido> contenidosCargados = Persistencia.cargarContenido("RedSocial");
 
         System.out.println("=== Contenidos Persistidos ===");
 
@@ -34,5 +34,4 @@ public class TestPersistenciaContenido {
             System.out.println(contenido);
         }
     }
-
 }

@@ -43,10 +43,6 @@ public class Valoracion implements Serializable {
         return puntuacion;
     }
 
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
-    }
-
     public String getComentario() {
         return comentario;
     }
@@ -70,11 +66,8 @@ public class Valoracion implements Serializable {
 
     @Override
     public String toString() {
-        return "Valoracion{" +
-                "estudiante=" + estudiante.getNombreCompleto() +
-                ", contenido=" + contenido.getTema() +
-                ", puntuacion=" + puntuacion +
-                ", comentario='" + comentario + '\'' +
-                '}';
+        return "Puntuación: " + puntuacion + ". Realizada por " +
+                estudiante.getNombreCompleto() + " en "
+                + contenido.getTema() + ".\n" + comentario + "\n";
     }
 }

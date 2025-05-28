@@ -46,7 +46,7 @@ public class PublicarContenidoController {
                 Contenido nuevoContenido = new Contenido(tema, autor, tipo);
 
                 estudiante.getContenidosPublicados().insertarNodoInicio(nuevoContenido);
-                Persistencia.guardarContenidos(estudiante.getContenidosPublicados());
+                Persistencia.guardarContenidos(estudiante.getContenidosPublicados(), autor.getNombre());
 
                 txtTema.clear();
                 comboTipo.getSelectionModel().clearSelection();

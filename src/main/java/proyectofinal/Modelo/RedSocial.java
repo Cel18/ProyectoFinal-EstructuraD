@@ -1,5 +1,6 @@
 package proyectofinal.Modelo;
 
+import jdk.jshell.execution.Util;
 import proyectofinal.Utilidades.Persistencia;
 import proyectofinal.Utilidades.Utilidades;
 
@@ -23,55 +24,88 @@ public class RedSocial implements Serializable {
     private Estudiante estudianteActivo; //estudiante loggeado
     private Moderador moderadorActivo;
 
+
+    //Constructor
+
     public RedSocial(String nombre) {
         this.nombre = nombre;
-        this.estudiantes = Persistencia.cargarEstudianteMapa();
-        this.moderadores = Persistencia.cargarModeradores();
-        this.contenidos = Persistencia.cargarContenido();
+        this.estudiantes = new HashMap<>();
+        this.moderadores = new HashMap<>();
+        this.contenidos = new ListaEnlazada<>();
         this.grafo = new GrafoAfinidad();
         this.colaSolicitudes = new ColaPrioridadSolicitudes();
         this.grupoEstudios = new ArrayList<>();
     }
 
+    //Método para registrar un estudiante en Red Social
+
     public void registrarEstudiante(Estudiante estudiante) {
         estudiantes.put(estudiante.getId(), estudiante);
         Persistencia.guardarEstudiantesMapa(estudiantes);
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método registrarEstudiante en RedSocial. Correcto.");
     }
+
+    //Método para registrar un moderador en Red Social
 
     public void registrarModerador(Moderador mod) {
         moderadores.put(mod.getId(), mod);
         Persistencia.guardarModeradores(moderadores);
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método registrarModerador en RedSocial. Correcto.");
     }
+
+    //Método para autenticar un estudiante en Red Social
 
     public Estudiante autenticarEstudiante(String nombre, String contrasena) {
         for (Estudiante e : estudiantes.values()) {
             if (e.getNombre().equals(nombre) && e.getContrasena().equals(contrasena)) {
                 estudianteActivo = e;
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método autenticarEstudiante en RedSocial. Correcto.");
                 return e;
             }
         }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método autenticarEstudiante en RedSocial. No se autenticó el estudiante.");
         return null;
     }
+
+    //Método para autenticar un moderador en Red Social
 
     public Moderador autenticarModerador(String nombre, String contrasena) {
         for (Moderador m : moderadores.values()) {
             if (m.getNombre().equals(nombre) && m.getContrasena().equals(contrasena)) {
                 moderadorActivo = m;
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método autenticarModerador en RedSocial. Correcto.");
                 return m;
             }
         }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método autenticarModerador en RedSocial. No se autenticó el moderador.");
         return null;
     }
+
+    //Método para publicar el contenido de un estudiante en Red Social
 
     public void publicarContenido(Estudiante autor, Contenido contenido) {
         if (!contenidos.buscarNodo(contenido)) {
             contenidos.insertarNodoInicio(contenido);
+            Persistencia.guardarContenidos(contenidos,"RedSocial");
             autor.publicarContenido(contenido);
-            Persistencia.guardarContenidos(contenidos);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en RedSocial. Correcto.");
         }
         Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en RedSocial. Incorrecto.");
     }
+
+    //Método para eliminar un contenido
+
+    public void eliminarContenido(Estudiante estudiante, Contenido contenido) {
+        if (contenidos.buscarNodo(contenido)) {
+            contenidos.eliminarNodo(contenido);
+            Persistencia.guardarContenidos(contenidos, "RedSocial");
+            estudiante.eliminarContenido(contenido);
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarContenido en RedSocial. Correcto.");
+        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarContenido en RedSocial. No se eliminó el contenido.");
+    }
+
+    //Métodos para buscar un contenido por tema, autor y tipo en Red Social
 
     public List<Contenido> buscarContenidoPorTema(String tema) {
         return List.of();
@@ -79,15 +113,20 @@ public class RedSocial implements Serializable {
     public List<Contenido> buscarContenidoPorAutor(String autor) {
         return List.of();
     }
-    public List<Contenido> buscarContenidoPorTipo(String tipo) {
+    public List<Contenido> buscarContenidoPorTipo(Usuario tipo) {
         return List.of();
     }
+
+    //Método para generar un grupo de estudio en Red Social
+
     public GrupoEstudio generarGrupoEstudio(Estudiante base){
         return null;
     }
 
-    public List<Contenido>  obtenerTodosContenidos() {
-        return List.of();
+    //Método para obtener todos los contenidos de Red Social
+
+    public String obtenerTodosContenidos() {
+        return contenidos.mostrarLista();
     }
 
     //getters and setters
@@ -170,6 +209,8 @@ public class RedSocial implements Serializable {
     public void setModeradorActivo(Moderador moderadorActivo) {
         this.moderadorActivo = moderadorActivo;
     }
+
+    //Método para cargar datos de prueba en Red Social
 
     public RedSocial cargarDatosPrueba(){
         //red social

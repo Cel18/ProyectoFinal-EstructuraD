@@ -42,7 +42,7 @@ public class Estudiante extends Usuario implements Serializable {
         return null;
     }
 
-    public NodoContenido<Contenido> buscarContenidoAutor(String autor) {
+    public NodoContenido<Contenido> buscarContenidoAutor(Usuario autor) {
         NodoContenido<Contenido> nodoRecorrer = contenidosPublicados.getInicial();
 
         while (nodoRecorrer != null) {
@@ -75,10 +75,28 @@ public class Estudiante extends Usuario implements Serializable {
     public void publicarContenido(Contenido contenido) {
         if (!contenidosPublicados.buscarNodo(contenido)) {
             contenidosPublicados.insertarNodoInicio(contenido);
-            Persistencia.guardarContenidos(contenidosPublicados);
+            Persistencia.guardarContenidos(contenidosPublicados, getNombreCompleto());
             Utilidades.getInstance().escribirLog(Level.INFO,"Método publicarContenido en Estudiante. Correcto.");
         }
         Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en Estudiante. Incorrecto, el contenido ya está publicado.");
+    }
+
+    //Método para eliminar un contenido subido por el estudiante
+
+    public void eliminarContenido(Contenido contenido) {
+        NodoContenido<Contenido> nodoRecorrer = contenidosPublicados.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().equals(contenido)) {
+                contenidosPublicados.eliminarNodo(nodoRecorrer.getContenido());
+                Persistencia.guardarContenidos(contenidosPublicados, getNombreCompleto());
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarContenido en Estudiante. Correcto.");
+            }
+
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarContenido en Estudiante. No se eliminó el contenido.");
     }
 
     //Método para valorar contenido
@@ -121,6 +139,42 @@ public class Estudiante extends Usuario implements Serializable {
         }
     }
 
+    //Método para eliminar una valoracion
+
+    public void eliminarValoracion(Valoracion valoracion) {
+        NodoContenido<Valoracion> nodoRecorrer = valoraciones.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().equals(valoracion)) {
+                valoraciones.eliminarNodo(nodoRecorrer.getContenido());
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarValoracion en Estudiante. Correcto.");
+                Persistencia.guardarValoraciones(valoraciones);
+            }
+
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarValoracion en Estudiante. No se eliminó la valoración");
+    }
+
+    //Método para obtener el promedio de las valoraciones del estudiante
+
+    public double getPromedioValoraciones() {
+        double suma = 0;
+        int cantidad = 0;
+
+        NodoContenido<Valoracion> actual = valoraciones.getInicial();
+
+        while (actual != null) {
+            suma += actual.getContenido().getPuntuacion();
+            cantidad++;
+            actual = actual.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método getPromedioValoraciones en Estudiante. Correcto.");
+        return cantidad > 0 ? suma / cantidad : 0;
+    }
+
     //Método para agregar conexión con otro estudiante
 
     public void agregarConexion(Estudiante estudiante) {
@@ -131,6 +185,41 @@ public class Estudiante extends Usuario implements Serializable {
         } else {
             Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Ya existe la conexión.");
         }
+    }
+
+    //Método para eliminar conexión con otro estudiante
+
+    public void eliminarConexion(Estudiante estudiante) {
+        NodoContenido<Estudiante> nodoRecorrer = conexiones.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().toString().equals(estudiante.toString())) {
+                conexiones.eliminarNodo(nodoRecorrer.getContenido());
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarConexion en Estudiante. Correcto.");
+                Persistencia.guardarConexiones(conexiones);
+                return;
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. No se eliminó la conexión.");
+    }
+
+    //Método para buscar conexión con otro estudiante por nombre (solo por el nombre)
+
+    public Estudiante buscarConexionPorNombre(String nombre) {
+        NodoContenido<Estudiante> nodoRecorrer = conexiones.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getNombre().equals(nombre)) {
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarValoracionPorNombre en Contenido. Correcto.");
+                return nodoRecorrer.getContenido();
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarValoracionPorNombre en Contenido. No se encontró.");
+        return null;
     }
 
     //Método para la sugerencia de la conexión
@@ -154,19 +243,7 @@ public class Estudiante extends Usuario implements Serializable {
 
     }
 
-    public double getPromedioValoraciones() {
-        double suma = 0;
-        int cantidad = 0;
-
-        NodoContenido<Valoracion> actual = valoraciones.getInicial();
-        while (actual != null) {
-            suma += actual.getContenido().getPuntuacion();
-            cantidad++;
-            actual = actual.getDerecho();
-        }
-
-        return cantidad > 0 ? suma / cantidad : 0;
-    }
+    //Método para generar el nombre completo del estudiante
 
     public String getNombreCompleto() {
         return this.getNombre() + " " + this.apellido;
@@ -192,6 +269,8 @@ public class Estudiante extends Usuario implements Serializable {
     public ListaEnlazada<Estudiante> getConexiones() {
         return conexiones;
     }
+
+    //Override
 
     @Override
     public String toString() {

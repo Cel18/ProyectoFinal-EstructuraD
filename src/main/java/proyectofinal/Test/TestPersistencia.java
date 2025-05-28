@@ -23,7 +23,7 @@ public class TestPersistencia {
         System.out.println("Estudiantes guardados exitosamente.\n");
 
         // Cargar desde archivo
-        Map<String, Estudiante> estudiantesCargados = Persistencia.cargarEstudianteMapa();
+        Map<String, Estudiante> estudiantesCargados = Persistencia.cargarEstudiantesMapa();
         System.out.println("Estudiantes cargados desde archivo:\n");
 
         for (Estudiante e : estudiantesCargados.values()) {
