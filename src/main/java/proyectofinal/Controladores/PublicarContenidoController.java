@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import proyectofinal.Modelo.*;
-import proyectofinal.Utilidades.Persistencia;
 
 public class PublicarContenidoController {
     private RedSocial redSocial;

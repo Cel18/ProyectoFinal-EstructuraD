@@ -23,6 +23,13 @@ public class LoginController {
     private PasswordField pfcontrasena;
 
     @FXML
+    public void initialize() {
+        if (this.redSocial == null) {
+            this.redSocial = new RedSocial(""); // o redSocial.cargarDatosPrueba() si quieres datos de prueba predeterminados
+        }
+    }
+
+    @FXML
     private void handleLogin() {
         String nombre = tfnombreUsuario.getText();
         String contrasena = pfcontrasena.getText();
@@ -33,6 +40,12 @@ public class LoginController {
         if (est != null) {
             redSocial.setEstudianteActivo(est);
             ListaEnlazada<Contenido> contenidosCargados = Persistencia.cargarContenido(est.getNombreCompleto());
+
+            for (NodoContenido<Contenido> nodo = contenidosCargados.getInicial(); nodo != null; nodo = nodo.getDerecho()) {
+                Contenido contenido = nodo.getContenido();
+                ListaEnlazada<Valoracion> valoracionesCargadas = Persistencia.cargarValoraciones(contenido.getId());
+                contenido.setValoraciones(valoracionesCargadas);
+            }
             est.setContenidosPublicados(contenidosCargados);
             redirigirVista("inicio.fxml");
         } else if (mod != null) {
@@ -40,6 +53,22 @@ public class LoginController {
             redirigirVista("panelModerador.fxml");
         } else {
             mostrarAlerta("Error de inicio de sesión", "Nombre de usuario o contraseña incorrectos.");
+        }
+    }
+
+    @FXML
+    public void handleCargarDatos(ActionEvent actionEvent) {
+        try {
+            this.redSocial = redSocial.cargarDatosPrueba();
+
+            for (Estudiante est : redSocial.getEstudiantes().values()) {
+                ListaEnlazada<Contenido> contenidosCargados = Persistencia.cargarContenido(est.getNombreCompleto());
+                est.setContenidosPublicados(contenidosCargados);
+            }
+            mostrarAlerta("Datos Cargados", "Se cargó una nueva red social con datos de prueba.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Error al Cargar Datos", "Ocurrió un error al crear o guardar los datos.\n" + e.getMessage());
         }
     }
 
@@ -83,21 +112,5 @@ public class LoginController {
 
     public void setRedSocial(RedSocial redSocial) {
         this.redSocial = redSocial;
-    }
-
-    @FXML
-    public void handleCargarDatos(ActionEvent actionEvent) {
-        try {
-            this.redSocial = redSocial.cargarDatosPrueba();
-
-            for (Estudiante est : redSocial.getEstudiantes().values()) {
-                ListaEnlazada<Contenido> contenidosCargados = Persistencia.cargarContenido(est.getNombreCompleto());
-                est.setContenidosPublicados(contenidosCargados);
-            }
-            mostrarAlerta("Datos Cargados", "Se cargó una nueva red social con datos de prueba.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta("Error al Cargar Datos", "Ocurrió un error al crear o guardar los datos.\n" + e.getMessage());
-        }
     }
 }

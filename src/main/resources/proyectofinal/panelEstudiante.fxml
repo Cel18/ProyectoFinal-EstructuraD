@@ -62,6 +62,10 @@
                             <padding>
                                 <Insets bottom="0" left="0" right="0" top="10" />
                             </padding>
+                            <Button text="Valorar"
+                                    fx:id="btnValorarContenido"
+                                    onAction="#valorarContenido"
+                                    style="-fx-background-color: #24789CFF; -fx-text-fill: white; -fx-font-weight: bold;" />
                             <Button text="Eliminar"
                                     fx:id="btnEliminarContenido"
                                     onAction="#eliminarContenido"

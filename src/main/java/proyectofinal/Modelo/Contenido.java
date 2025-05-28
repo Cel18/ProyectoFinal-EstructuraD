@@ -90,6 +90,10 @@ public class Contenido implements Serializable {
         return valoraciones;
     }
 
+    public void setValoraciones(ListaEnlazada<Valoracion> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+
     @Override
     public String toString() {
         return tema + ", " + autor + ", " + tipo + ", " + id + ".";

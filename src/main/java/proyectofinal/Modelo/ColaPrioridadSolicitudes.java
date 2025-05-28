@@ -1,60 +1,63 @@
 package proyectofinal.Modelo;
 
+import proyectofinal.Utilidades.Utilidades;
+
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.logging.Level;
 
 public class ColaPrioridadSolicitudes implements Serializable {
 
-    private LinkedList<SolicitudAyuda> cola;
+    private PriorityQueue<SolicitudAyuda> cola;
 
     public ColaPrioridadSolicitudes() {
-        this.cola = new LinkedList<>();
+        this.cola = new PriorityQueue<>(Comparator.comparingInt(SolicitudAyuda::getUrgencia).reversed());
     }
 
     // Agrega la solicitud ordenándola por prioridad (mayor urgencia primero)
+
     public void agregarSolicitud(SolicitudAyuda solicitud) {
-        if (cola.isEmpty()) {
-            cola.add(solicitud);
-            return;
-        }
-
-        int i = 0;
-        while (i < cola.size() && solicitud.getUrgencia() <= cola.get(i).getUrgencia()) {
-            i++;
-        }
-
-        cola.add(i, solicitud); // Inserta en la posición correcta
+        cola.offer(solicitud);
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarSolicitud en ColaPrioridadSolicitudes. Correcto.");
     }
 
     // Retorna sin eliminar la solicitud con mayor prioridad
+
     public SolicitudAyuda obtenerSolicitudPrioritaria() {
-        return cola.isEmpty() ? null : cola.getFirst();
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método obtenerSolicitudPrioridad en ColaPrioridadSolicitudes. Correcto.");
+        return cola.peek();
     }
 
     // Elimina la solicitud con mayor prioridad
+
     public void eliminarSolicitudPrioritaria() {
-        if (!cola.isEmpty()) {
-            cola.removeFirst();
-        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarSolicitudPrioritaria en ColaPrioridadSolicitudes. Correcto.");
+        cola.poll();
     }
 
     // Elimina una solicitud específica
+
     public void eliminarSolicitud(SolicitudAyuda solicitud) {
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarSolicitud en ColaPrioridadSolicitudes. Correcto.");
         cola.remove(solicitud);
     }
 
     // Verifica si la cola está vacía
+
     public boolean estaVacia() {
         return cola.isEmpty();
     }
 
     // Retorna todas las solicitudes
-    public List<SolicitudAyuda> obtenerTodasLasSolicitudes() {
-        return new LinkedList<>(cola); // Evita exponer la lista original
+
+    public PriorityQueue<SolicitudAyuda> obtenerTodasLasSolicitudes() {
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método obtenerTodasLasSolicitudes en ColaPrioridadSolicitudes. Correcto.");
+        return new PriorityQueue<>(cola); // Evita exponer la lista original
     }
 
     // Para debug o impresión
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Cola de Solicitudes:\n");

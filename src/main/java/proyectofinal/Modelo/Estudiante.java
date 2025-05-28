@@ -22,9 +22,9 @@ public class Estudiante extends Usuario implements Serializable {
     public Estudiante(String nombre, String apellido, String contrasena) {
         super(nombre, contrasena);
         this.apellido = apellido;
-        this.contenidosPublicados = Persistencia.cargarContenido(getNombreCompleto());
-        this.valoraciones = Persistencia.cargarValoraciones(getNombreCompleto());
-        this.conexiones = Persistencia.cargarConexiones(getNombreCompleto());
+        this.contenidosPublicados = new ListaEnlazada<>(); //Persistencia.cargarContenido(getNombreCompleto());
+        this.valoraciones = new ListaEnlazada<>(); //Persistencia.cargarValoraciones(getNombreCompleto());
+        this.conexiones = new ListaEnlazada<>(); //Persistencia.cargarConexiones(getNombreCompleto());
     }
 
     //Métodos para buscar contenido
@@ -162,7 +162,7 @@ public class Estudiante extends Usuario implements Serializable {
         Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarValoracion en Estudiante. No se eliminó la valoración");
     }
 
-    //Método para obtener el promedio de las valoraciones del estudiante
+    //Metodo para obtener el promedio de las valoraciones que ha hecho el estudiante
 
     public double getPromedioValoraciones() {
         double suma = 0;
@@ -179,6 +179,8 @@ public class Estudiante extends Usuario implements Serializable {
         Utilidades.getInstance().escribirLog(Level.INFO, "Método getPromedioValoraciones en Estudiante. Correcto.");
         return cantidad > 0 ? suma / cantidad : 0;
     }
+
+    // valoraciones de los contenidos del estudiante
 
     public double getPromedioValoracionesRecibidas() {
         double suma = 0;

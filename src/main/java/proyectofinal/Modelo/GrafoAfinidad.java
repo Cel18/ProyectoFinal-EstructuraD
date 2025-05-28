@@ -101,6 +101,7 @@ public class GrafoAfinidad implements Serializable {
     }
 
     // Método para reestablecer el grafo si fue deserializado (transient)
+
     public void reconstruirGrafoSiEsNecesario() {
         if (graph == null) {
             graph = new SingleGraph("Grafo de Afinidad");

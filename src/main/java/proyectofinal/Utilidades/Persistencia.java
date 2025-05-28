@@ -66,7 +66,7 @@ public class Persistencia {
     }
 
     public static Estudiante cargarEstudiante(String nombre) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiante_" + nombre + ".dat"))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiantes_lista_" + nombre + ".dat"))) {
             return (Estudiante) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class Persistencia {
     }
 
     public static ListaEnlazada<Estudiante> cargarConexiones(String nombre) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiante_" + nombre + ".dat"))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiante_lista_" + nombre + ".dat"))) {
             return (ListaEnlazada<Estudiante>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
