@@ -55,8 +55,8 @@ public class Persistencia {
 
     //Persistencia de conexión entre dos estudiantes
 
-    public static void guardarEstudiante(Estudiante estudiante) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("estudiantes_lista.dat"))) {
+    public static void guardarEstudiante(Estudiante estudiante, String nombre) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("estudiantes_lista_" + nombre + ".dat"))) {
             oos.writeObject(estudiante);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método guardarEstudiante en Persistencia. Correcto.");
         } catch (IOException e) {
@@ -76,8 +76,8 @@ public class Persistencia {
 
     //Persistencia de la lista de conexiones
 
-    public static void guardarConexiones(ListaEnlazada<Estudiante> conexiones) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("estudiantes_lista.dat"))) {
+    public static void guardarConexiones(ListaEnlazada<Estudiante> conexiones, String nombre) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("estudiantes_lista_" + nombre + ".dat"))) {
             oos.writeObject(conexiones);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método guardarConexiones en Persistencia. Correcto.");
         } catch (IOException e) {
@@ -85,6 +85,16 @@ public class Persistencia {
             e.printStackTrace();
         }
     }
+
+    public static ListaEnlazada<Estudiante> cargarConexiones(String nombre) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("estudiante_" + nombre + ".dat"))) {
+            return (ListaEnlazada<Estudiante>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //Persistencia de la lista de los grafos de afinidad
 
     public static void guardarGrafosAfinidad(List<GrafoAfinidad> grafosAfinidad) {
@@ -110,8 +120,8 @@ public class Persistencia {
 
     //Persistencia de la lista de los grupos de estudio
 
-    public static void guardarGruposEstudio(List<GrupoEstudio> gruposEstudio) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("gruposEstudio.dat"))) {
+    public static void guardarGruposEstudio(ListaEnlazada<GrupoEstudio> gruposEstudio, String nombre) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("gruposEstudio_" + nombre + ".dat"))) {
             oos.writeObject(gruposEstudio);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método guardarGruposEstudio en Persistencia. Correcto.");
         } catch (IOException e) {
@@ -120,14 +130,14 @@ public class Persistencia {
         }
     }
 
-    public static List<GrupoEstudio> cargarGruposEstudio() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("gruposEstudio.dat"))) {
+    public static ListaEnlazada<GrupoEstudio> cargarGruposEstudio(String nombre) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("gruposEstudio_" + nombre + ".dat"))) {
             Utilidades.getInstance().escribirLog(Level.INFO, "Método cargarGruposEstudio en Persistencia. Correcto.");
-            return (List<GrupoEstudio>) ois.readObject();
+            return (ListaEnlazada<GrupoEstudio>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             Utilidades.getInstance().escribirLog(Level.WARNING, "Método cargarGruposEstudio en Persistencia. Incorrecto.");
             e.printStackTrace();
-            return new ArrayList<>();
+            return new ListaEnlazada<>();
         }
     }
 
@@ -189,8 +199,8 @@ public class Persistencia {
         }
     }
 
-    public static ListaEnlazada<Valoracion> cargarValoraciones() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("valoraciones.dat"))) {
+    public static ListaEnlazada<Valoracion> cargarValoraciones(String nombre) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("valoraciones_" + nombre + ".dat"))) {
             Utilidades.getInstance().escribirLog(Level.INFO, "Método cargarValoraciones en Persistencia. Correcto.");
             return (ListaEnlazada<Valoracion>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {

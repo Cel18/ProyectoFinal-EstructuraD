@@ -1,40 +1,40 @@
 package proyectofinal.Modelo;
 
-import jdk.jshell.execution.Util;
 import proyectofinal.Utilidades.Persistencia;
 import proyectofinal.Utilidades.Utilidades;
 
+import java.io.File;
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
 public class RedSocial implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
+
     private String nombre;
     private Map<String, Estudiante> estudiantes;
     private Map<String, Moderador> moderadores;
     private ListaEnlazada<Contenido> contenidos;
-    private NodoContenido<Contenido> raiz;
     private GrafoAfinidad grafo;
     private ColaPrioridadSolicitudes colaSolicitudes;
-    private List<GrupoEstudio> grupoEstudios;
+    private ListaEnlazada<GrupoEstudio> grupoEstudios;
     private Estudiante estudianteActivo; //estudiante loggeado
     private Moderador moderadorActivo;
 
-
-    //Constructor
+    //Constructor de la clase Red Social
 
     public RedSocial(String nombre) {
         this.nombre = nombre;
         this.estudiantes = new HashMap<>();
         this.moderadores = new HashMap<>();
-        this.contenidos = new ListaEnlazada<>();
+        this.contenidos = Persistencia.cargarContenido("RedSocial");
         this.grafo = new GrafoAfinidad();
         this.colaSolicitudes = new ColaPrioridadSolicitudes();
-        this.grupoEstudios = new ArrayList<>();
+        this.grupoEstudios = Persistencia.cargarGruposEstudio("RedSocial");
     }
 
     //Método para registrar un estudiante en Red Social
@@ -88,9 +88,15 @@ public class RedSocial implements Serializable {
             contenidos.insertarNodoInicio(contenido);
             Persistencia.guardarContenidos(contenidos,"RedSocial");
             autor.publicarContenido(contenido);
+
+            GrupoEstudio grupo = new GrupoEstudio("Grupo_" + contenido.getTipo().toString());
+                if (!grupoEstudios.buscarNodo(grupo)) {
+                    generarGrupoEstudio(grupo);
+                }
             Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en RedSocial. Correcto.");
+        } else {
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en RedSocial. Incorrecto.");
         }
-        Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en RedSocial. Incorrecto.");
     }
 
     //Método para eliminar un contenido
@@ -121,17 +127,74 @@ public class RedSocial implements Serializable {
         Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoPorTema en RedSocial. Correcto.");
         return listaContenidos;
     }
-    public List<Contenido> buscarContenidoPorAutor(String autor) {
-        return List.of();
+
+    public ListaEnlazada<Contenido> buscarContenidosPorAutor(Estudiante autor) {
+        NodoContenido<Contenido> nodoRecorrer = contenidos.getInicial();
+        ListaEnlazada<Contenido> listaContenidos = new ListaEnlazada<>();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getAutor().equals(autor)) {
+                listaContenidos.insertarNodoInicio(nodoRecorrer.getContenido());
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoPorAutor en RedSocial. Correcto.");
+        return listaContenidos;
     }
-    public List<Contenido> buscarContenidoPorTipo(Usuario tipo) {
-        return List.of();
+
+    public ListaEnlazada<Contenido> buscarContenidosPorTipo(TipoContenido tipo) {
+        NodoContenido<Contenido> nodoRecorrer = contenidos.getInicial();
+        ListaEnlazada<Contenido> listaContenidos = new ListaEnlazada<>();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getTipo().equals(tipo)) {
+                listaContenidos.insertarNodoInicio(nodoRecorrer.getContenido());
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarContenidoPorTipo en RedSocial. Correcto.");
+        return listaContenidos;
     }
 
     //Método para generar un grupo de estudio en Red Social
 
-    public GrupoEstudio generarGrupoEstudio(Estudiante base){
-        return null;
+    public void generarGrupoEstudio(GrupoEstudio grupoEstudio) {
+        if (!grupoEstudios.buscarNodo(grupoEstudio)) {
+            grupoEstudios.insertarNodoInicio(grupoEstudio);
+            Persistencia.guardarGruposEstudio(grupoEstudios, "");
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método generarGrupoEstudio en RedSocial. Correcto.");
+            return;
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método generarGrupoEstudio en RedSocial. No se generó el grupo de estudio.");
+    }
+
+    //Método para agregar un estudiante a un Grupo de Estudio
+
+    public void ingresarEstudianteAGrupoEstudio(GrupoEstudio grupoEstudio, Estudiante estudiante) {
+        if (buscarGrupoEstudio(grupoEstudio)) {
+            grupoEstudio.agregarEstudiante(estudiante);
+            Utilidades.getInstance().escribirLog(Level.INFO, "Método ingresarEstudianteAGrupoEstudio en RedSocial. Correcto.");
+            return;
+        }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método ingresarEstudianteAGrupoEstudio en RedSocial. Incorrecto.");
+    }
+
+    public boolean buscarGrupoEstudio(GrupoEstudio grupoEstudio) {
+        NodoContenido<GrupoEstudio> nodoRecorrer = grupoEstudios.getInicial();
+
+        while (nodoRecorrer != null) {
+            if (nodoRecorrer.getContenido().getNombre().equals(grupoEstudio.getNombre())) {
+                Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarGrupoEstudio en RedSocial. Correcto.");
+                return true;
+            }
+            nodoRecorrer = nodoRecorrer.getDerecho();
+        }
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método buscarGrupoEstudio en RedSocial. No se encontró el grupo de estudio.");
+        return false;
     }
 
     //Método para obtener todos los contenidos de Red Social
@@ -140,7 +203,8 @@ public class RedSocial implements Serializable {
         return contenidos.mostrarLista();
     }
 
-    //getters and setters
+    //Getters and setters
+
     public String getNombre() {
         return nombre;
     }
@@ -173,14 +237,6 @@ public class RedSocial implements Serializable {
         this.contenidos = contenidos;
     }
 
-    public NodoContenido getRaiz() {
-        return raiz;
-    }
-
-    public void setRaiz(NodoContenido raiz) {
-        this.raiz = raiz;
-    }
-
     public GrafoAfinidad getGrafo() {
         return grafo;
     }
@@ -197,11 +253,11 @@ public class RedSocial implements Serializable {
         this.colaSolicitudes = colaSolicitudes;
     }
 
-    public List<GrupoEstudio> getGrupoEstudios() {
+    public ListaEnlazada<GrupoEstudio> getGrupoEstudios() {
         return grupoEstudios;
     }
 
-    public void setGrupoEstudios(List<GrupoEstudio> grupoEstudios) {
+    public void setGrupoEstudios(ListaEnlazada<GrupoEstudio> grupoEstudios) {
         this.grupoEstudios = grupoEstudios;
     }
 
@@ -298,8 +354,8 @@ public class RedSocial implements Serializable {
         cont2.getValoraciones().insertarNodoInicio(val3);
 
         // Guardar valoraciones
-        Persistencia.guardarValoraciones(est1.getValoraciones());
-        Persistencia.guardarValoraciones(est2.getValoraciones());
+        Persistencia.guardarValoraciones(est1.getValoraciones(), est1.getNombreCompleto());
+        Persistencia.guardarValoraciones(est2.getValoraciones(), est2.getNombreCompleto());
 
         //Guardar
         redSocial.setGrafo(grafo);

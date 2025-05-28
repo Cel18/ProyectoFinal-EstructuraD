@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import proyectofinal.Modelo.GrupoEstudio;
 import proyectofinal.Modelo.RedSocial;
 
 public class GrupoEstudioController {

@@ -18,12 +18,13 @@ public class Estudiante extends Usuario implements Serializable {
     private ListaEnlazada<Estudiante> conexiones;
 
     //Constructor de la clase Estudiante
+
     public Estudiante(String nombre, String apellido, String contrasena) {
         super(nombre, contrasena);
         this.apellido = apellido;
-        this.contenidosPublicados = new ListaEnlazada<>();
-        this.valoraciones = new ListaEnlazada<>();
-        this.conexiones = new ListaEnlazada<>();
+        this.contenidosPublicados = Persistencia.cargarContenido(getNombreCompleto());
+        this.valoraciones = Persistencia.cargarValoraciones(getNombreCompleto());
+        this.conexiones = Persistencia.cargarConexiones(getNombreCompleto());
     }
 
     //Métodos para buscar contenido
@@ -42,7 +43,7 @@ public class Estudiante extends Usuario implements Serializable {
         return null;
     }
 
-    public NodoContenido<Contenido> buscarContenidoAutor(Usuario autor) {
+    public NodoContenido<Contenido> buscarContenidoAutor(Estudiante autor) {
         NodoContenido<Contenido> nodoRecorrer = contenidosPublicados.getInicial();
 
         while (nodoRecorrer != null) {
@@ -77,7 +78,9 @@ public class Estudiante extends Usuario implements Serializable {
             contenidosPublicados.insertarNodoInicio(contenido);
             Persistencia.guardarContenidos(contenidosPublicados, getNombreCompleto());
             Utilidades.getInstance().escribirLog(Level.INFO,"Método publicarContenido en Estudiante. Correcto.");
+            return;
         }
+
         Utilidades.getInstance().escribirLog(Level.INFO, "Método publicarContenido en Estudiante. Incorrecto, el contenido ya está publicado.");
     }
 
@@ -91,6 +94,7 @@ public class Estudiante extends Usuario implements Serializable {
                 contenidosPublicados.eliminarNodo(nodoRecorrer.getContenido());
                 Persistencia.guardarContenidos(contenidosPublicados, getNombreCompleto());
                 Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarContenido en Estudiante. Correcto.");
+                return;
             }
 
             nodoRecorrer = nodoRecorrer.getDerecho();
@@ -111,12 +115,12 @@ public class Estudiante extends Usuario implements Serializable {
 
         if (!valoraciones.buscarNodo(nuevaValoracion)) {
             valoraciones.insertarNodoInicio(nuevaValoracion);
-            Persistencia.guardarValoraciones(valoraciones);
+            Persistencia.guardarValoraciones(valoraciones, getNombreCompleto());
 
             // Agregar la valoración también al contenido
             if (!contenido.getValoraciones().buscarNodo(nuevaValoracion)) {
                 contenido.getValoraciones().insertarNodoInicio(nuevaValoracion);
-                Persistencia.guardarValoraciones(contenido.getValoraciones());
+                Persistencia.guardarValoraciones(contenido.getValoraciones(), getNombreCompleto());
             }
 
             // Crear conexión con otros estudiantes que ya hayan valorado este contenido
@@ -148,7 +152,8 @@ public class Estudiante extends Usuario implements Serializable {
             if (nodoRecorrer.getContenido().equals(valoracion)) {
                 valoraciones.eliminarNodo(nodoRecorrer.getContenido());
                 Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarValoracion en Estudiante. Correcto.");
-                Persistencia.guardarValoraciones(valoraciones);
+                Persistencia.guardarValoraciones(valoraciones, getNombreCompleto());
+                return;
             }
 
             nodoRecorrer = nodoRecorrer.getDerecho();
@@ -205,10 +210,11 @@ public class Estudiante extends Usuario implements Serializable {
         if (!conexiones.buscarNodo(estudiante)) {
             conexiones.insertarNodoInicio(estudiante);
             Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Correcto.");
-            Persistencia.guardarEstudiante(this);
-        } else {
-            Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Ya existe la conexión.");
+            Persistencia.guardarEstudiante(this, getNombreCompleto());
+            return;
         }
+
+        Utilidades.getInstance().escribirLog(Level.INFO, "Método agregarConexion en Estudiante. Ya existe la conexión.");
     }
 
     //Método para eliminar conexión con otro estudiante
@@ -220,7 +226,7 @@ public class Estudiante extends Usuario implements Serializable {
             if (nodoRecorrer.getContenido().toString().equals(estudiante.toString())) {
                 conexiones.eliminarNodo(nodoRecorrer.getContenido());
                 Utilidades.getInstance().escribirLog(Level.INFO, "Método eliminarConexion en Estudiante. Correcto.");
-                Persistencia.guardarConexiones(conexiones);
+                Persistencia.guardarConexiones(conexiones, getNombreCompleto());
                 return;
             }
             nodoRecorrer = nodoRecorrer.getDerecho();
@@ -252,13 +258,6 @@ public class Estudiante extends Usuario implements Serializable {
 
         Utilidades.getInstance().escribirLog(Level.INFO,"Método obtenerSugerenciasDeConexion en Estudiante. Correcto.");
         return null;
-    }
-
-    //Método para unirse a un grupo de estudio
-
-    public void unirseAGrupoEstudio(ListaEnlazada<Estudiante> grupo) {
-
-        Utilidades.getInstance().escribirLog(Level.INFO,"Método unirseAGrupoEstudio en Estudiante. Correcto.");
     }
 
     //Método para enviar mensaje a otro estudiante
